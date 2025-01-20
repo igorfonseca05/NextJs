@@ -1,8 +1,23 @@
+import { useSession, signIn, signOut } from 'next-auth/react'
+
 import Link from 'next/link';
 
+
 import styles from './styles.module.css'
+import { useEffect, useState } from 'react';
 
 export default function Header() {
+
+  const [userName, setUserName] = useState<string | undefined>()
+  const { data: session, status } = useSession()
+
+  useEffect(() => {
+    if (session) {
+      const userName = session?.user?.name
+      setUserName(userName?.split(' ')[0])
+    }
+  }, [])
+
 
   return (
     <header className={styles.header}>
@@ -15,7 +30,17 @@ export default function Header() {
             Meu Painel
           </Link>
         </nav>
-        <button className={styles.loginButton}>Acessar</button>
+        {status === 'loading' ? (
+          <></>
+        ) : session ? (
+          <div className={styles.greatingContainer}>
+            <p className={styles.greatingUser}>Olá {userName} </p>
+            <button className={styles.loginButton} onClick={() => signOut()}>Sair</button>
+          </div>
+
+        ) : (
+          <button className={styles.loginButton} onClick={() => signIn('google')}>Acessar</button>
+        )}
       </section>
     </header>
   );

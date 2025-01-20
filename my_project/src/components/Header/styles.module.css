@@ -59,3 +59,14 @@
     border-radius: 4px;
     margin: 0 14px;
 }
+
+.greatingContainer {
+    display: flex;
+    align-items: center;
+    column-gap: 1em;
+}
+
+.greatingUser {
+    color: white;
+    text-transform: capitalize;
+}
