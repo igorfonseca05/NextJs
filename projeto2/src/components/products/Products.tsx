@@ -16,7 +16,7 @@ interface Products {
 
 
 async function getProducts() {
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    // await new Promise(resolve => setTimeout(resolve, 3000))
     const res = await fetch('http://localhost:4000/products')
     return res.json()
 }

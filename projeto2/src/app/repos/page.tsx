@@ -12,7 +12,7 @@ async function getRepos() {
 
     try {
 
-        const res = await fetch('https://api.github.com/1users/igorfonseca05/repos')
+        const res = await fetch('https://api.github.com/users/igorfonseca05/repos')
 
         if (!res.ok) {
             throw new Error('Error ao obter')

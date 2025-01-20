@@ -45,11 +45,6 @@ export const metadata: Metadata = {
   },
   authors: [{ name: 'igorfonseca05' }, { name: 'igorfondev' }, { name: 'igorfonseca' }],
   publisher: 'Igor Ribeiro da Fonseca',
-  formatDetection: {
-
-  },
-
-
 };
 
 export default function RootLayout({

@@ -35,36 +35,3 @@
 .titles {
     margin-bottom: 1rem;
 }
-
-.prodCont {
-    /* overflow: hidden; */
-    /* width: f; */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 0.5rem;
-    /* background-color: tomato; */
-}
-
-.cardProducts {
-    position: relative !important;
-    width: 100%;
-    background-color: #ffffff;
-    border: 0.1rem solid rgba(0, 0, 0, 0.089);
-    border-radius: 6px;
-    padding: 0.7rem;
-    height: auto;
-}
-
-.productsInfo {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    /* background-color: rebeccapurple; */
-    height: 110px;
-}
-
-.productsInfo h3 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
