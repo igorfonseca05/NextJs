@@ -2,15 +2,33 @@
     display: flex;
     justify-content: end;
     padding: 8px 2rem 8px 0px;
-    background-color: rgb(209, 209, 209);
+    background-color: rgb(40, 65, 134);
 }
 
 .linksContainer {
     display: flex;
-    width: 250px;
+    width: 300px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .linksContainer li {
     list-style: none;
+    color: white;
+    font-weight: 600;
+}
+
+.login {
+    width: 100px;
+    text-align: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: rgb(226, 225, 225);
+    color: black !important;
+}
+
+.login:hover {
+    cursor: pointer;
+    background-color: rgb(194, 194, 194);
+    color: black !important;
 }
