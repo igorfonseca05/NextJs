@@ -1,0 +1,19 @@
+.titleContainer {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    /* align-items: center; */
+    width: 80%;
+    /* height: calc(100vh - 57px); */
+    text-align: center;
+    margin: 15% auto;
+}
+
+.title {
+    font-size: 3rem;
+    margin: 0 auto;
+}
+
+.subTitle {
+    color: gray;
+}
