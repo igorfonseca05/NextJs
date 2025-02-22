@@ -1,3 +1,16 @@
 .navContainer {
-    background-color: rgb(180, 129, 231);
+    display: flex;
+    justify-content: end;
+    padding: 8px 2rem 8px 0px;
+    background-color: rgb(209, 209, 209);
+}
+
+.linksContainer {
+    display: flex;
+    width: 250px;
+    justify-content: space-between;
+}
+
+.linksContainer li {
+    list-style: none;
 }
