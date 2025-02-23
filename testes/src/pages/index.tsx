@@ -13,7 +13,8 @@ export default function Home() {
   // console.log(test.charAt(test.length - 1))
   // console.log(test.concat("-", 'Minha', '-'))
   // console.log(test.includes('x'))
-  console.log(test.indexOf('c'))
+  // console.log(test.indexOf('c'))
+  console.log(test.lastIndexOf('a'))
 
 
 
