@@ -13,8 +13,27 @@ import { FiShare2 } from 'react-icons/fi'
 import { FaTrash } from 'react-icons/fa'
 
 // Executado sempre do lado do servidor
+// export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//     const session = await getSession({ req })
+
+//     if (!session?.user) {
+//         return {
+//             redirect: {
+//                 destination: '/',
+//                 permanent: false
+//             }
+//         }
+//     }
+
+//     return {
+//         props: {}
+//     }
+// }
+
+
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-    const session = await getSession({ req })
+
+    const session = await getSession({ req }) // Aqui estou obtendo a sessão do usuário
 
     if (!session?.user) {
         return {
@@ -48,7 +67,6 @@ export default function Dashboard() {
                                 <input type="checkbox" className={styles.checkbox} />
                                 <label>Deixar tarefa publica?</label>
                             </div>
-
                             <button className={styles.button} type="submit">
                                 Registrar
                             </button>

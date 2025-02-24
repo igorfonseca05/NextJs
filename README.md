@@ -181,7 +181,7 @@ export async function getServerSideProps(context) {
   };
 }
 
-export default function Page({ data }) {
+export default function Page({ data }: { data: "tipo de dado" | null }) {
   return (
     <div>
       <h1>Dados do servidor:</h1>
@@ -203,7 +203,7 @@ import { getSession } from "next-auth/react";
 
 // Executado sempre do lado do servidor
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req });
+  const session = await getSession({ req }); // Aqui obtemos os dados da sessão do usuário
 
   if (!session?.user) {
     return {
