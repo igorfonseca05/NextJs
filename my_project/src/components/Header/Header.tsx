@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 export default function Header() {
 
   const [userName, setUserName] = useState<string | undefined>()
+
   const { data: session, status } = useSession()
 
   useEffect(() => {

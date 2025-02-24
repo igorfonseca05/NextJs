@@ -120,22 +120,27 @@ Para criar um sistema de login usando provedores confederados no next, usamos o 
   import { useSession, signIn, signOut } from "next-auth/react";
 
   export default function Component() {
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
-    if (session) {
-      return (
+    // Verificamos o status do usuário, logado ou carregando
+    {
+      status === "loading" ? (
         <>
-          Signed in as {session.user.email} <br />
-          <button onClick={() => signOut()}>Sign out</button>
+          <p>Carregando...</p>
         </>
+      ) : session ? (
+        <div className={styles.greatingContainer}>
+          <p className={styles.greatingUser}>Olá {userName} </p>
+          <button className={styles.loginButton} onClick={() => signOut()}>
+            Sair
+          </button>
+        </div>
+      ) : (
+        <button className={styles.loginButton} onClick={() => signIn("google")}>
+          Acessar
+        </button>
       );
     }
-    return (
-      <>
-        Not signed in <br />
-        <button onClick={() => signIn()}>Sign in</button>
-      </>
-    );
   }
   ```
 
