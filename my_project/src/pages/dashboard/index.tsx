@@ -10,21 +10,51 @@ import Textarea from "@/src/components/Textarea";
 
 // Icons
 import { FiShare2 } from 'react-icons/fi'
-import { FaTrash } from 'react-icons/fa'
-import { ChangeEvent, FormEvent, useState } from "react";
+// import { FaTrash } from 'react-icons/fa'
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+
+// Firebase
+import { db, addDoc, collection, getDocs, onSnapshot, doc } from '../../firebase/firebaseConnection'
+import Tasks from "@/src/components/tasks/Tasks";
 
 
 export default function Dashboard() {
 
-    const [input, setInput] = useState('')
+    const [input, setInput] = useState("")
     const [publicTask, setPublicTask] = useState(false)
+    const [tasks, setTasks] = useState([])
 
 
-    function handleFunctionSubmit(event: FormEvent) {
+    useEffect(() => {
+        async function getTaks() {
+
+            const task = onSnapshot(doc(db, 'userTasks', 'task'), (doc) => {
+                console.log(doc.data())
+            })
+
+        }
+
+        getTaks()
+
+    }, [])
+
+
+    // Função para salvar os dados
+    async function handleFunctionSubmit(event: FormEvent) {
         event.preventDefault()
 
+        try {
 
+            const docRef = await addDoc(collection(db, 'userTasks'), {
+                taskDescription: input,
+                public: publicTask
+            })
 
+            console.log('tarefa adicinada com sucesso', docRef)
+
+        } catch (error) {
+            console.log('Erro ao adicionar documento', error)
+        }
     }
 
 
@@ -69,12 +99,7 @@ export default function Dashboard() {
                             </button>
                         </div>
 
-                        <div className={styles.taskContent}>
-                            <p>Minha primeira tarefa de exemplo show demais!</p>
-                            <button className={styles.trashButton}>
-                                <FaTrash size={24} color="#ea3140" />
-                            </button>
-                        </div>
+                        <Tasks />
                     </article>
                 </section>
             </main>
