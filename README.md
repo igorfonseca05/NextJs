@@ -6,6 +6,8 @@ Este espaço é dedicado a anotações e resumos sobre recursos importantes do N
 
 ## Sumário
 
+### Section 5
+
 - [Nota 1 - Criando rotas no Next.js](#nota-1---criando-rotas-no-nextjs)
 - [Nota 2 - Compartilhar componentes entre páginas](#nota-2---compartilhar-componentes-entre-paginas)
 - [Nota 3 - Criando componentes](#nota-3---criando-componentes)
@@ -13,6 +15,8 @@ Este espaço é dedicado a anotações e resumos sobre recursos importantes do N
 - [Nota 5 - Componentes internos NextJs](#nota-5---componentes-internos-nextjs)
 - [Nota 6 - Criar sistema de autenticação usando provedores federados](#nota-6---criar-sistema-de-autenticacao-usando-provedores-federados)
 - [Nota 7 - Utilizando GetServerSideProps](#nota-7---utilizando-getserversideprops)
+- [Nota 8 - Criando componente textArea](#nota-8---componente-textarea)
+- [Nota 9 - Adicionando Task ao firebase](#nota-9---adicionando-tasks-ao-firebase)
 
 ### Nota 1 - Criando rotas no Nextjs
 
@@ -26,6 +30,8 @@ Acima vemos a rota dashbord criada
 
 ### Nota 2 - Compatilhar componentes entre páginas
 
+[Voltar ao topo](#sumário)
+
 O compartilhamento de componentes entre todas as rotas na nossa aplicação, no Next é feito no arquivo **src/pages/\_app.tsx**, como pode ser visto no exemplo abaixo.
 
 ```javascript
@@ -37,6 +43,7 @@ O compartilhamento de componentes entre todas as rotas na nossa aplicação, no 
 
 ### Nota 3 - Criando componentes
 
+[Voltar ao topo](#sumário)
 Dentro de src criamos a pasta "Components" onde adicionamos os components que usaremos
 na nossa aplicação, a estrura das pastas arquivos criados deve ser:
 
@@ -44,6 +51,7 @@ na nossa aplicação, a estrura das pastas arquivos criados deve ser:
 
 ### Nota 4 - Estrutura de componentes no Next
 
+[Voltar ao topo](#sumário)
 A função que da origem aos componentes no Next é do tipo:
 
 ```javascript
@@ -56,11 +64,13 @@ export default function "Nome do componente/pagina" () {
 
 ### Nota 5 - Componentes internos NextJs
 
+[Voltar ao topo](#sumário)
 Use componentes prontos do next como o `<Image/>` e o `<Head>`. Não se esqueça de
 priorizar o carregamento da imagem com o atributo "priority" do componente `<Image/>`
 
 ### Nota 6 - Criar sistema de autenticação usando provedores federados
 
+[Voltar ao topo](#sumário)
 Para criar um sistema de login usando provedores confederados no next, usamos o pacote nextAuth
 
 - No terminal digite:
@@ -146,6 +156,7 @@ Para criar um sistema de login usando provedores confederados no next, usamos o 
 
 ### Nota 7 - Utilizando GetServerSideProps
 
+[Voltar ao topo](#sumário)
 O getServerSideProps no Next.js é usado para renderizar uma página no lado do servidor a cada requisição. Aqui está uma explicação simples:
 
 **Quando usar?**
@@ -218,4 +229,56 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     props: {},
   };
 };
+```
+
+### Nota 8 - Componente textArea
+
+[Voltar ao topo](#sumário)
+Aqui criamos o componente textArea que será utilizado bastante dentro da nossa aplicação, e em função disso, usamos
+a propriedade `{ ...rest }: HTMLProps<HTMLTextAreaElement>` uma vez que queremos deixar que o desenvolvedor atribua
+qualquer propriedade ao componente via `<TextArea placeholder={...}/>`. A diretiva `HTMLProps<HTMLTextAreaElement` garante que o textArea não possa receber nenhum outro tipo de atributo que não seja o da tag textArea.
+
+```javascript
+import { HTMLProps } from "react";
+import styles from "./styles.module.css";
+
+export default function Textarea({ ...rest }: HTMLProps<HTMLTextAreaElement>) {
+  return (
+    <textarea className={styles.textarea} name="" id="" {...rest}></textarea>
+  );
+}
+```
+
+### Nota 9 - Adicionando Tasks ao firebase
+
+[Voltar ao topo](#sumário)
+
+Aqui vamos usar o firebase para salvar nossas tarefas, para isso precisamos instalar o pacote do firebase na nossa aplicação e configurar um projeto no firebase
+
+    npm i firebase
+
+Acesse o site do firebase, e crie um projeto. Após criar esse projeto, integre-o ao nextJS.
+
+Na pasta `src` crie uma pasta chamada **firebase** e dentro dela um arquivo chamado **firebaseConnection.ts**. Dentro
+desse arquivo, vamos adicinar o código de integração que recebemos no momento da criação do projeto no firebase.
+
+```javascript
+import { initializeApp } from "firebase/app";
+
+import { getFirestore } from "firebase/firestore"; // importamos o FireStore
+
+const firebaseConfig = {
+  apiKey: "Dados sigilosos"
+  authDomain: "Dados sigilosos"
+  projectId: "Dados sigilosos"
+  storageBucket: "Dados sigilosos"
+  messagingSenderId: "Dados sigilosos"
+  appId: "Dados sigilosos"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app); // Inicializamos base de dados
+
+export default { db }; // importamos base de dados
 ```
