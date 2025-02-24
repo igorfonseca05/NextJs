@@ -1,5 +1,5 @@
 
-import style from '../navbar/style.module.css'
+import style from '../navbar/styles.module.css'
 
 export default function Navbar() {
     return (
