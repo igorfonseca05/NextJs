@@ -58,6 +58,7 @@
     max-width: 1024px;
     display: flex;
     flex-direction: column;
+    min-height: 100vh;
 }
 
 .taskContainer a {
@@ -120,4 +121,9 @@
     background: transparent;
     border: 0;
     margin: 0 8px;
+}
+
+.warning {
+    text-align: center;
+    /* background-color: rebeccapurple; */
 }

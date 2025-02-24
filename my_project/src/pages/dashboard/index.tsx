@@ -9,7 +9,7 @@ import Head from 'next/head'
 import Textarea from "@/src/components/Textarea";
 
 // Icons
-import { FiShare2 } from 'react-icons/fi'
+// import { FiShare2 } from 'react-icons/fi'
 // import { FaTrash } from 'react-icons/fa'
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
@@ -17,26 +17,25 @@ import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { db, addDoc, collection, getDocs, onSnapshot, doc } from '../../firebase/firebaseConnection'
 import Tasks from "@/src/components/tasks/Tasks";
 
+// inferindo tipo de dados do objeto users quer recebemos 
+// da props do getServerSideProps
+interface UserInfos {
+    user: {
+        email: string
+    }
+}
 
-export default function Dashboard() {
+export default function Dashboard({ user }: UserInfos) {
 
     const [input, setInput] = useState("")
+
+    // Aqui não precisamos inferir, pois "false" é um tipo boolean especifico
+    // o ts é capaz de inferir tipo automaticamente
     const [publicTask, setPublicTask] = useState(false)
-    const [tasks, setTasks] = useState([])
 
+    // Aqui o ts não sabe que é um array de objetos, precisamos inferir
+    const [tasks, setTasks] = useState<{ id: string; tarefa: string, public: boolean }[]>([])
 
-    useEffect(() => {
-        async function getTaks() {
-
-            const task = onSnapshot(doc(db, 'userTasks', 'task'), (doc) => {
-                console.log(doc.data())
-            })
-
-        }
-
-        getTaks()
-
-    }, [])
 
 
     // Função para salvar os dados
@@ -44,14 +43,12 @@ export default function Dashboard() {
         event.preventDefault()
 
         try {
-
-            const docRef = await addDoc(collection(db, 'userTasks'), {
-                taskDescription: input,
-                public: publicTask
+            await addDoc(collection(db, 'userTasks'), {
+                tarefa: input,
+                public: publicTask,
+                createdAt: Date.now(),
+                user
             })
-
-            console.log('tarefa adicinada com sucesso', docRef)
-
         } catch (error) {
             console.log('Erro ao adicionar documento', error)
         }
@@ -61,6 +58,21 @@ export default function Dashboard() {
     function handleChangePublic(event: ChangeEvent<HTMLInputElement>) {
         setPublicTask(event.target.checked)
     }
+
+    useEffect(() => {
+        onSnapshot(collection(db, 'userTasks'), (snapshot) => {
+
+            // Aqui inferimos o tipo pq o ts não sabe que userTask é um array de objetos.
+            const userTasks = snapshot.docs.map(doc => ({
+                id: doc.id,
+                ...doc.data()
+            })) as { id: string; tarefa: string, public: boolean }[]
+
+
+            setTasks(userTasks)
+        })
+    }, [])
+
 
     return (
         <div className={styles.container}>
@@ -74,7 +86,9 @@ export default function Dashboard() {
 
                         <form onSubmit={handleFunctionSubmit}>
                             <Textarea placeholder="Digite qual sua tarefa..."
-                                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => setInput(event.target.value)} />
+                                onChange={(event: ChangeEvent<HTMLTextAreaElement>) => {
+                                    setInput(event.target.value)
+                                }} />
                             <div className={styles.checkboxArea}>
                                 <input type="checkbox" className={styles.checkbox}
                                     checked={publicTask}
@@ -90,17 +104,13 @@ export default function Dashboard() {
 
                 <section className={styles.taskContainer}>
                     <h1>Minhas tarefas</h1>
-
-                    <article className={styles.task}>
-                        <div className={styles.tagContainer}>
-                            <label className={styles.tag}>PUBLICO</label>
-                            <button className={styles.shareButton}>
-                                <FiShare2 size={22} color="#3183ff" />
-                            </button>
-                        </div>
-
-                        <Tasks />
-                    </article>
+                    {
+                        tasks?.length ? (
+                            tasks.map(doc => (
+                                doc.public ? <Tasks key={doc.id} text={doc.tarefa} /> : ''
+                            ))) :
+                            (<p className={styles.warning}>Nenhuma tarefa adicionada</p>)
+                    }
                 </section>
             </main>
         </div>
@@ -121,7 +131,11 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     }
 
     return {
-        props: {}
+        props: {
+            user: {
+                email: session?.user?.email
+            },
+        },
     }
-}
 
+}
