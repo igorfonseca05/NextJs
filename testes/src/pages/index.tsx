@@ -7,20 +7,12 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  // string methods
-
-  const test = 'cadeira'
-
-  // console.log(test.charAt(test.length - 1))
-  // console.log(test.concat("-", 'Minha', '-'))
-  // console.log(test.includes('x'))
-  // console.log(test.indexOf('c'))
-  // console.log(test.lastIndexOf('a'))
-
+  // Tipagem de variaveis primitivas
   const nome: string = 'igor'
   const altura: number = 185
   const isWhite: boolean = true
 
+  // Tipagem de arrays
   const nomes: string[] = ['Caio', 'Pedro']
   const idades: number[] = [1, 2, 3]
 
@@ -60,6 +52,114 @@ export default function Home() {
   function sum(num1: number, num2: number): number {
     return num1 + num2
   }
+
+
+  // Execicio 1
+  const name: string = 'Caio'
+  const idade: number = 23
+  const ativo: boolean = true
+
+  // Exercicio 2
+  const mega: number[] = [12, 5, 17, 36, 56, 72]
+
+  // Exercicio 3
+
+  type Car = {
+    marca: string,
+    ano: number
+  }
+
+  const carro: Car = {
+    marca: 'Ford',
+    ano: 1995
+  }
+
+  // Exercicio 4
+
+  type Pessoa = {
+    nome: string,
+    idade: number,
+    email: string
+  }
+
+  const person: Pessoa = {
+    nome: 'Carlos',
+    idade: 37,
+    email: 'Carlos@gamail.com'
+  }
+
+  // Exercicio 5 
+
+  function dobrar(a: number): number {
+    return a * 2
+  }
+
+  // Exercicio 6
+
+  type Product = {
+    name: string,
+    preco: number
+  }
+
+  function criarProduto(name: string, preco: number): Product {
+    return {
+      name,
+      preco
+    }
+  }
+
+  // Exercicio 7 
+
+  const users: { nome: string, idade: number, email: string }[] = [{
+    nome: 'Andre',
+    idade: 56,
+    email: 'Andre@gmail.com'
+  }]
+
+  //  Exercicio 8
+
+  async function buscarDados(): Promise<{ id: number, nome: string }> {
+    return {
+      id: 2,
+      nome: 'Igor'
+    }
+  }
+
+  // Exercicio 9
+
+  const [contador, setContador] = useState<number>(0)
+
+  // Exercicio 9
+
+  type Pedido = {
+    id: number,
+    produto: string,
+    observacao?: string
+  }
+
+  const meuPedido: Pedido = {
+    id: 2,
+    produto: 'Caderno',
+    observacao: 'Esse produto é novo no país'
+  }
+
+
+
+  type Person = {
+    name: string,
+    idade?: number
+  }
+
+  const pessoa: Person = {
+    name: 'Ricardo',
+  }
+
+
+
+
+
+
+
 
 
 
