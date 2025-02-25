@@ -25,10 +25,17 @@
     border-radius: 8px;
     background-color: rgb(226, 225, 225);
     color: black !important;
+    text-transform: capitalize;
 }
 
 .login:hover {
     cursor: pointer;
     background-color: rgb(194, 194, 194);
     color: black !important;
+}
+
+.greating {
+    font-weight: 600;
+    color: white;
+
 }

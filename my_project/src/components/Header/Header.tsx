@@ -1,11 +1,13 @@
-import { useSession, signIn, signOut } from 'next-auth/react'
 
 import Link from 'next/link';
 import Image from 'next/image';
 
-
 import styles from './styles.module.css'
 import { useEffect, useState } from 'react';
+
+// nextAuth
+import { useSession, signIn, signOut } from 'next-auth/react'
+
 
 export default function Header() {
 
