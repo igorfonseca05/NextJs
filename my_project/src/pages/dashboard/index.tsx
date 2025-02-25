@@ -24,11 +24,19 @@ interface UserInfos {
     }
 }
 
+interface Tasks {
+    id: string;
+    tarefa: string,
+    public: boolean,
+    createdAt: Date,
+    user: string
+}
+
 export default function Dashboard({ user }: UserInfos) {
 
     const [input, setInput] = useState<string>("")
     const [publicTask, setPublicTask] = useState<boolean>(false)
-    const [tasks, setTasks] = useState<{ id: string; tarefa: string, public: boolean }[]>([])
+    const [tasks, setTasks] = useState<Tasks[]>([])
 
 
     // Função para salvar os dados
@@ -65,11 +73,16 @@ export default function Dashboard({ user }: UserInfos) {
         const q = query(
             usersTaskRef,
             orderBy('createdAt', 'desc'),
-            where("user", '==', user?.email)
+            // where("user", '==', user?.email)
         )
 
         onSnapshot(q, (snapshot) => {
+            const data = snapshot.docs
+
             console.log(snapshot)
+
+            // setTasks(data)
+
         })
 
     }, [])
