@@ -14,11 +14,10 @@ import Textarea from "@/src/components/Textarea";
 import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 
 // Firebase
-import { db, addDoc, collection, getDocs, onSnapshot, doc } from '../../firebase/firebaseConnection'
+import { db, addDoc, collection, onSnapshot, query, where, orderBy } from '../../firebase/firebaseConnection'
 import Tasks from "@/src/components/tasks/Tasks";
 
-// inferindo tipo de dados do objeto users quer recebemos 
-// da props do getServerSideProps
+
 interface UserInfos {
     user: {
         email: string
@@ -27,20 +26,16 @@ interface UserInfos {
 
 export default function Dashboard({ user }: UserInfos) {
 
-    const [input, setInput] = useState("")
-
-    // Aqui não precisamos inferir, pois "false" é um tipo boolean especifico
-    // o ts é capaz de inferir tipo automaticamente
-    const [publicTask, setPublicTask] = useState(false)
-
-    // Aqui o ts não sabe que é um array de objetos, precisamos inferir
+    const [input, setInput] = useState<string>("")
+    const [publicTask, setPublicTask] = useState<boolean>(false)
     const [tasks, setTasks] = useState<{ id: string; tarefa: string, public: boolean }[]>([])
-
 
 
     // Função para salvar os dados
     async function handleFunctionSubmit(event: FormEvent) {
         event.preventDefault()
+
+        if (input === '') return
 
         try {
             await addDoc(collection(db, 'userTasks'), {
@@ -49,6 +44,9 @@ export default function Dashboard({ user }: UserInfos) {
                 createdAt: Date.now(),
                 user
             })
+
+            setInput('')
+            setPublicTask(false)
         } catch (error) {
             console.log('Erro ao adicionar documento', error)
         }
@@ -59,18 +57,21 @@ export default function Dashboard({ user }: UserInfos) {
         setPublicTask(event.target.checked)
     }
 
+
     useEffect(() => {
-        onSnapshot(collection(db, 'userTasks'), (snapshot) => {
 
-            // Aqui inferimos o tipo pq o ts não sabe que userTask é um array de objetos.
-            const userTasks = snapshot.docs.map(doc => ({
-                id: doc.id,
-                ...doc.data()
-            })) as { id: string; tarefa: string, public: boolean }[]
+        const usersTaskRef = collection(db, 'userTasks')
 
+        const q = query(
+            usersTaskRef,
+            orderBy('createdAt', 'desc'),
+            where("user", '==', user?.email)
+        )
 
-            setTasks(userTasks)
+        onSnapshot(q, (snapshot) => {
+            console.log(snapshot)
         })
+
     }, [])
 
 
@@ -107,7 +108,7 @@ export default function Dashboard({ user }: UserInfos) {
                     {
                         tasks?.length ? (
                             tasks.map(doc => (
-                                doc.public ? <Tasks key={doc.id} text={doc.tarefa} /> : ''
+                                <Tasks key={doc.id} text={doc.tarefa} />
                             ))) :
                             (<p className={styles.warning}>Nenhuma tarefa adicionada</p>)
                     }
