@@ -14,7 +14,7 @@ import {
 } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCWts_qMBaVp76pQl24TAB18BUH-D7291s",
+  apiKey: process.env.FIREBASE_API_KEY,
   authDomain: "tasks-ee0f3.firebaseapp.com",
   projectId: "tasks-ee0f3",
   storageBucket: "tasks-ee0f3.firebasestorage.app",
