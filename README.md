@@ -265,7 +265,7 @@ desse arquivo, vamos adicinar o código de integração que recebemos no momento
 ```javascript
 import { initializeApp } from "firebase/app";
 
-import { getFirestore } from "firebase/firestore"; // importamos o FireStore
+import { getFirestore, db, addDoc, collection, onSnapshot, query, where, orderBy } from "firebase/firestore"; // importamos o FireStore
 
 const firebaseConfig = {
   apiKey: "Dados sigilosos"
@@ -281,4 +281,41 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app); // Inicializamos base de dados
 
 export default { db }; // importamos base de dados
+```
+
+No rota na qual você quer adicionar dados ao firestore, importe o `db` e faça:
+
+### dashBoard Route
+
+```javascript
+import {
+  db,
+  addDoc,
+  collection,
+  onSnapshot,
+  query,
+  where,
+  orderBy,
+} from "../../firebase/firebaseConnection";
+
+// Função de envio do form para salvar dados na base de dados
+async function handleSubmit(event: FormEvent) {
+  event.preventDefault();
+
+  if (input === "") return;
+
+  try {
+    await addDoc(collection(db, "userTasks"), {
+      tarefa: input, // state que recebe o valor do input
+      public: publicTask, // state que recebe o valor do check input
+      createdAt: Date.now(),
+      user,
+    });
+
+    setInput("");
+    setPublicTask(false);
+  } catch (error) {
+    console.log("Erro ao adicionar documento", error);
+  }
+}
 ```

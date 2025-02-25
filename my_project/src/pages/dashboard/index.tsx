@@ -129,7 +129,11 @@ export default function Dashboard({ user }: UserInfos) {
                     {
                         tasks?.length ? (
                             tasks.map(doc => (
-                                <Tasks key={doc.id} text={doc.tarefa} publicTask={doc.public} id={doc.id} />
+                                <Tasks
+                                    key={doc.id}
+                                    text={doc.tarefa}
+                                    publicTask={doc.public}
+                                    id={doc.id} />
                             ))) :
                             (<p className={styles.warning}>Nenhuma tarefa adicionada</p>)
                     }
