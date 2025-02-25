@@ -73,16 +73,24 @@ export default function Dashboard({ user }: UserInfos) {
         const q = query(
             usersTaskRef,
             orderBy('createdAt', 'desc'),
-            // where("user", '==', user?.email)
+            where("user", '==', user)
         )
 
         onSnapshot(q, (snapshot) => {
-            const data = snapshot.docs
 
-            console.log(snapshot)
+            let data = [] as Tasks[]
 
-            // setTasks(data)
+            snapshot.forEach(doc => {
+                data.push({
+                    id: doc.id,
+                    tarefa: doc.data().tarefa,
+                    createdAt: doc.data().createdAt,
+                    public: doc.data().public,
+                    user: doc.data().user
+                })
+            })
 
+            setTasks(data)
         })
 
     }, [])
@@ -121,7 +129,7 @@ export default function Dashboard({ user }: UserInfos) {
                     {
                         tasks?.length ? (
                             tasks.map(doc => (
-                                <Tasks key={doc.id} text={doc.tarefa} />
+                                <Tasks key={doc.id} text={doc.tarefa} publicTask={doc.public} id={doc.id} />
                             ))) :
                             (<p className={styles.warning}>Nenhuma tarefa adicionada</p>)
                     }
