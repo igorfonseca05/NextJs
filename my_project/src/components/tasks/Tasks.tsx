@@ -18,6 +18,7 @@ export default function Tasks({ text, publicTask, id }: { text: string, publicTa
     }
 
 
+    // Criando função responsavel por remover task
     async function deleteData(id: string) {
         const taskRef = doc(db, 'userTasks', id)
         await deleteDoc(taskRef)
