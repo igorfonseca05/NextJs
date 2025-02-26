@@ -5,6 +5,8 @@ import Head from 'next/head';
 
 import { doc, getDoc, db } from '../../firebase/firebaseConnection'
 
+import Textarea from '../../components/Textarea/index'
+
 
 interface TaskProps {
     task: {
@@ -26,7 +28,18 @@ export default function Task({ task }: TaskProps) {
 
             <main className={styles.main}>
                 <h1 >Tarefa</h1>
+                <article className={styles.task}>
+                    <p>{task.tarefa}</p>
+                </article>
             </main>
+
+            <section className={styles.commentsContainer}>
+                <h2>Deixar comentário</h2>
+                <form>
+                    <Textarea placeholder='Digite seu comentário'></Textarea>
+                    <button className={styles.button}>Enviar comentário</button>
+                </form>
+            </section>
         </div>
 
 
