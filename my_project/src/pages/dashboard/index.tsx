@@ -67,15 +67,12 @@ export default function Dashboard({ user }: UserInfos) {
 
 
     useEffect(() => {
-
         const usersTaskRef = collection(db, 'userTasks')
-
         const q = query(
             usersTaskRef,
             orderBy('createdAt', 'desc'),
             where("user", '==', user)
         )
-
         onSnapshot(q, (snapshot) => {
 
             let data = [] as Tasks[]

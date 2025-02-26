@@ -1,5 +1,5 @@
 
-import { HTMLProps } from 'react';
+import { HTMLProps, useState } from 'react';
 import styles from '../tasks/styles.module.css'
 import { FaTrash } from 'react-icons/fa'
 import { FiShare2 } from 'react-icons/fi'
@@ -10,11 +10,20 @@ import { db, doc, deleteDoc } from '../../firebase/firebaseConnection'
 
 export default function Tasks({ text, publicTask, id }: { text: string, publicTask: boolean, id: string }) {
 
+    const [copied, setCopied] = useState<boolean>(false)
+
     // Criamos aqui uma função que executa a copia com base em click
     async function handleShare(id: string) {
         await navigator.clipboard.writeText(
             `${process.env.NEXT_PUBLIC_URL}/task/${id}`
         )
+
+        setCopied(!copied)
+
+        setTimeout(() => {
+            setCopied(false)
+            // console.log('oi')
+        }, 2000)
     }
 
 
@@ -29,9 +38,15 @@ export default function Tasks({ text, publicTask, id }: { text: string, publicTa
         <article className={styles.task}>
             {publicTask && <div className={styles.tagContainer}>
                 <label className={styles.tag}>PUBLICO</label>
-                <button className={styles.shareButton} onClick={() => handleShare(id)}>
-                    <FiShare2 size={22} color="#3183ff" />
-                </button>
+                {copied ? (
+                    <p style={{ paddingLeft: '10px', color: '#27ae60' }}>Copiado!</p>
+                ) : (
+                    <button className={styles.shareButton} onClick={() => handleShare(id)}>
+                        <FiShare2 size={22} color="#3183ff" />
+                    </button>
+                )
+
+                }
             </div>}
             <div className={styles.taskContent}>
 
