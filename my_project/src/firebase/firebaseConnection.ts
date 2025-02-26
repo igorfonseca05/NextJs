@@ -7,6 +7,7 @@ import {
   collection, 
   onSnapshot, 
   doc, 
+  getDoc,
   query, 
   where, 
   orderBy,
@@ -34,5 +35,6 @@ export {
   query, 
   where,
   orderBy,
-  deleteDoc
+  deleteDoc,
+  getDoc
 }
