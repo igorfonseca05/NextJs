@@ -11,7 +11,8 @@ import {
   query, 
   where, 
   orderBy,
- deleteDoc
+ deleteDoc,
+ getDocs
 } from 'firebase/firestore'
 
 const firebaseConfig = {
@@ -36,5 +37,6 @@ export {
   where,
   orderBy,
   deleteDoc,
-  getDoc
+  getDoc,
+  getDocs
 }

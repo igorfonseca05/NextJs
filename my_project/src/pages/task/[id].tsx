@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 
 import Head from 'next/head';
 
-import { doc, getDoc, db, collection, addDoc, onSnapshot, query, where } from '../../firebase/firebaseConnection'
+import { doc, getDoc, db, collection, addDoc, onSnapshot, query, where, getDocs } from '../../firebase/firebaseConnection'
 
 import Textarea from '../../components/Textarea/index'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -18,9 +18,11 @@ interface TaskProps {
         id: string,
         tarefa: string
         createdAt: Date,
-        public: string
-        user: string
-    }
+        public: string,
+        user: string,
+        idTask: string
+    },
+    allComments: Comments[]
 }
 
 
@@ -32,12 +34,12 @@ type Comments = {
     author: string
 }
 
-export default function Task({ task }: TaskProps) {
+export default function Task({ task, allComments }: TaskProps) {
 
     const { data: session, status } = useSession()
 
     const [comment, setComment] = useState<string>('')
-    const [comments, setComments] = useState<Comments[]>([])
+    const [comments, setComments] = useState<Comments[]>(allComments || [])
 
 
     async function addComments(event: FormEvent) {
@@ -64,34 +66,7 @@ export default function Task({ task }: TaskProps) {
         }
     }
 
-    useEffect(() => {
-
-        const collectionRef = collection(db, 'UserComments')
-
-        const q = query(
-            collectionRef,
-            orderBy('createdAt', 'desc'),
-            where('id', '==', task?.id)
-        )
-
-        onSnapshot(q, (snapShot) => {
-
-            const postsComments = [] as Comments[]
-
-            snapShot.forEach(doc => {
-                postsComments.push({
-                    idTask: doc.id,
-                    comment: doc.data()?.comment,
-                    id: doc.data()?.id,
-                    createdAt: doc.data()?.createdAt,
-                    author: doc.data()?.author
-                })
-            })
-            setComments(postsComments)
-        })
-
-    }, [])
-
+    // console.log(comments)
 
 
     return (
@@ -141,12 +116,9 @@ export default function Task({ task }: TaskProps) {
 };
 
 export const getServerSideProps: GetServerSideProps = async ({ params, req }) => {
-
     const session = await getSession({ req })
 
     const id = params?.id as string
-
-
     const docRef = doc(db, 'userTasks', id)
     const docSnap = await getDoc(docRef)
 
@@ -167,9 +139,26 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         user: docSnap.data()?.user?.email
     }
 
+    // Buscando dados
+
+    const postsComments = [] as Comments[]
+
+    const q = query(collection(db, 'UserComments'), where('id', '==', id))
+    const snapshot = await getDocs(q)
+    snapshot.forEach((doc) => {
+        postsComments.push({
+            id: doc.id,
+            idTask: doc.data()?.id,
+            comment: doc.data()?.comment,
+            author: doc.data()?.author,
+            createdAt: doc.data()?.createdAt
+        })
+    })
+
     return {
         props: {
-            task
+            task,
+            allComments: postsComments
         }
     }
 }
