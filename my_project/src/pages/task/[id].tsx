@@ -24,7 +24,17 @@ interface TaskProps {
         user: string,
         idTask: string
     },
-    allComments: Comments[]
+    allComments: {
+        idTask: string,
+        comment: string,
+        id: string,
+        createdAt: Date,
+        author: {
+            name: string,
+            email: string
+            image: string
+        }
+    }[]
 }
 
 type Comments = {
@@ -39,12 +49,12 @@ type Comments = {
     }
 }
 
-export default function Task({ task }: TaskProps) {
+export default function Task({ task, allComments }: TaskProps) {
 
     const { data: session, status } = useSession()
 
     const [comment, setComment] = useState<string>('')
-    const [comments, setComments] = useState<Comments[]>([])
+    const [comments, setComments] = useState<Comments[]>(allComments || [])
 
 
     async function deleteComment(id: string) {
@@ -57,6 +67,8 @@ export default function Task({ task }: TaskProps) {
     async function addComments(event: FormEvent) {
         event.preventDefault()
 
+        const collectionRef = collection(db, 'UserComments')
+
         if (comment == '') return
         if (!session?.user?.email) return
 
@@ -64,13 +76,25 @@ export default function Task({ task }: TaskProps) {
             comment,
             id: task?.id,
             createdAt: Date.now(),
-            author: session?.user
+            author: session?.user,
+            // idTask: allComments?.idTask
         }
 
-        const collectionRef = collection(db, 'UserComments')
+
 
         try {
-            await addDoc(collectionRef, userComment)
+            const dado = await addDoc(collectionRef, userComment)
+
+            // console.log(dado)
+            const data = {
+                comment,
+                id: task?.id,
+                createdAt: Date.now(),
+                author: session?.user,
+                idTask: dado?.id
+            }
+
+            setComments((prevItems) => [...prevItems, data])
             setComment('')
 
             console.log('adicionei')
@@ -80,31 +104,33 @@ export default function Task({ task }: TaskProps) {
         }
     }
 
-
-    useEffect(() => {
-
-        const collectionRef = collection(db, 'UserComments')
-        const q = query(collectionRef, where('id', '==', task?.id))
+    console.log(allComments)
 
 
-        const unsubscribed = onSnapshot(q, (snapshot) => {
-            const postsComments = [] as Comments[]
-            snapshot.forEach((doc) => {
-                postsComments.push({
-                    id: doc.id,
-                    comment: doc.data()?.comment,
-                    createdAt: doc.data()?.createdAt,
-                    author: doc.data()?.author,
-                    idTask: doc.data()?.idTask
-                })
-            })
-            setComments(postsComments)
-        })
+    // useEffect(() => {
+
+    //     const collectionRef = collection(db, 'UserComments')
+    //     const q = query(collectionRef, where('id', '==', task?.id))
 
 
-        return () => unsubscribed()
+    //     const unsubscribed = onSnapshot(q, (snapshot) => {
+    //         const postsComments = [] as Comments[]
+    //         snapshot.forEach((doc) => {
+    //             postsComments.push({
+    //                 id: doc.id,
+    //                 comment: doc.data()?.comment,
+    //                 createdAt: doc.data()?.createdAt,
+    //                 author: doc.data()?.author,
+    //                 idTask: doc.data()?.idTask
+    //             })
+    //         })
+    //         setComments(postsComments)
+    //     })
 
-    }, [])
+
+    //     return () => unsubscribed()
+
+    // }, [])
 
 
     return (
@@ -189,10 +215,26 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         user: docSnap.data()?.user?.email
     }
 
+    const q = query(collection(db, 'UserComments'), where('id', '==', id))
+    const querySnapshot = await getDocs(q)
+
+    const comments = [] as Comments[]
+    querySnapshot.forEach((doc) => {
+        comments.push({
+            id: doc.id,
+            comment: doc.data()?.comment,
+            createdAt: doc.data()?.createdAt,
+            author: doc.data()?.author,
+            idTask: doc.data()?.id
+        })
+    })
+
+
 
     return {
         props: {
-            task
+            task,
+            allComments: comments
         }
     }
 }
