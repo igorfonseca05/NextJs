@@ -3,7 +3,7 @@ import styles from './styles.module.css'
 
 import Head from 'next/head';
 
-import { doc, getDoc, db, collection, addDoc, onSnapshot, query, where, getDocs } from '../../firebase/firebaseConnection'
+import { doc, getDoc, db, collection, addDoc, onSnapshot, query, where, getDocs, deleteDoc } from '../../firebase/firebaseConnection'
 
 import Textarea from '../../components/Textarea/index'
 import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
@@ -11,6 +11,8 @@ import { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import { getSession, useSession } from 'next-auth/react';
 import { orderBy } from 'firebase/firestore/lite';
 import { getServerSession } from 'next-auth';
+
+import { FaTrash } from "react-icons/fa";
 
 
 interface TaskProps {
@@ -25,22 +27,32 @@ interface TaskProps {
     allComments: Comments[]
 }
 
-
 type Comments = {
     idTask: string,
     comment: string,
     id: string,
     createdAt: Date,
-    author: string
+    author: {
+        name: string,
+        email: string
+        image: string
+    }
 }
 
-export default function Task({ task, allComments }: TaskProps) {
+export default function Task({ task }: TaskProps) {
 
     const { data: session, status } = useSession()
 
     const [comment, setComment] = useState<string>('')
-    const [comments, setComments] = useState<Comments[]>(allComments || [])
+    const [comments, setComments] = useState<Comments[]>([])
 
+
+    async function deleteComment(id: string) {
+        const commentsRef = doc(db, 'UserComments', id)
+        await deleteDoc(commentsRef)
+        console.log('deletei')
+        // setComments((prevItems) => prevItems.filter((item) => item.id !== id));
+    }
 
     async function addComments(event: FormEvent) {
         event.preventDefault()
@@ -60,13 +72,39 @@ export default function Task({ task, allComments }: TaskProps) {
         try {
             await addDoc(collectionRef, userComment)
             setComment('')
+
+            console.log('adicionei')
         } catch (error) {
             console.log(error)
 
         }
     }
 
-    // console.log(comments)
+
+    useEffect(() => {
+
+        const collectionRef = collection(db, 'UserComments')
+        const q = query(collectionRef, where('id', '==', task?.id))
+
+
+        const unsubscribed = onSnapshot(q, (snapshot) => {
+            const postsComments = [] as Comments[]
+            snapshot.forEach((doc) => {
+                postsComments.push({
+                    id: doc.id,
+                    comment: doc.data()?.comment,
+                    createdAt: doc.data()?.createdAt,
+                    author: doc.data()?.author,
+                    idTask: doc.data()?.idTask
+                })
+            })
+            setComments(postsComments)
+        })
+
+
+        return () => unsubscribed()
+
+    }, [])
 
 
     return (
@@ -104,8 +142,20 @@ export default function Task({ task, allComments }: TaskProps) {
                 )}
 
                 {comments.map((item) => (
-                    <article key={item.idTask} className={styles.comment}>
-                        <p style={{ margin: '0px' }}>{item.comment}</p>
+                    <article key={item.id} className={styles.comment}>
+                        <div className={styles.headComment}>
+                            <label className={styles.commentsLabel}>{item.author?.name}</label>
+                            {item.author?.email === session?.user?.email && (
+                                <button
+                                    className={styles.buttonTrash}>
+                                    <FaTrash size={18} color="#EA3140"
+                                        onClick={(e) => deleteComment(item.id)}
+
+                                    />
+                                </button>
+                            )}
+                        </div>
+                        <p>{item.comment}</p>
                     </article>
                 ))}
             </section>
@@ -139,26 +189,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         user: docSnap.data()?.user?.email
     }
 
-    // Buscando dados
-
-    const postsComments = [] as Comments[]
-
-    const q = query(collection(db, 'UserComments'), where('id', '==', id))
-    const snapshot = await getDocs(q)
-    snapshot.forEach((doc) => {
-        postsComments.push({
-            id: doc.id,
-            idTask: doc.data()?.id,
-            comment: doc.data()?.comment,
-            author: doc.data()?.author,
-            createdAt: doc.data()?.createdAt
-        })
-    })
 
     return {
         props: {
-            task,
-            allComments: postsComments
+            task
         }
     }
 }
