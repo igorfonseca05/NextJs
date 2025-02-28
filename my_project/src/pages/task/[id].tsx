@@ -49,8 +49,13 @@ export default function Task({ task, allComments }: TaskProps) {
 
     async function deleteComment(id: string) {
         const commentsRef = doc(db, 'UserComments', id)
-        await deleteDoc(commentsRef)
-        console.log('deletei')
+
+        try {
+            await deleteDoc(commentsRef)
+            setComments(prev => prev.filter(item => item.id !== id))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     async function addComments(event: FormEvent) {
