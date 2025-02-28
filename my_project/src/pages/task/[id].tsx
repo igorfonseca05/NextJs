@@ -21,32 +21,22 @@ interface TaskProps {
         tarefa: string
         createdAt: Date,
         public: string,
-        user: string,
+        userName: string,
+        email: string,
+        image: string,
         idTask: string
     },
-    allComments: {
-        idTask: string,
-        comment: string,
-        id: string,
-        createdAt: Date,
-        author: {
-            name: string,
-            email: string
-            image: string
-        }
-    }[]
+    allComments: Comments[]
 }
 
 type Comments = {
     idTask: string,
     comment: string,
     id: string,
-    createdAt: Date,
-    author: {
-        name: string,
-        email: string
-        image: string
-    }
+    // createdAt: Date,
+    userName: string,
+    email: string,
+    image: string
 }
 
 export default function Task({ task, allComments }: TaskProps) {
@@ -61,40 +51,35 @@ export default function Task({ task, allComments }: TaskProps) {
         const commentsRef = doc(db, 'UserComments', id)
         await deleteDoc(commentsRef)
         console.log('deletei')
-        // setComments((prevItems) => prevItems.filter((item) => item.id !== id));
     }
 
     async function addComments(event: FormEvent) {
         event.preventDefault()
 
-        const collectionRef = collection(db, 'UserComments')
-
         if (comment == '') return
         if (!session?.user?.email) return
 
-        const userComment = {
-            comment,
-            id: task?.id,
-            createdAt: Date.now(),
-            author: session?.user,
-            // idTask: allComments?.idTask
-        }
-
-
-
         try {
-            const dado = await addDoc(collectionRef, userComment)
-
-            // console.log(dado)
-            const data = {
+            const dado = await addDoc(collection(db, 'UserComments'), {
                 comment,
                 id: task?.id,
                 createdAt: Date.now(),
-                author: session?.user,
-                idTask: dado?.id
+                userName: session.user.name || '',
+                email: session.user.email,
+                image: session.user.image || '',
+            })
+
+            const data = {
+                id: dado.id,
+                comment,
+                idTask: task?.id,
+                userName: session.user.name || '',
+                email: session.user.email,
+                image: session.user.image || '',
             }
 
-            setComments((prevItems) => [...prevItems, data])
+            setComments((prev) => [...prev, data])
+
             setComment('')
 
             console.log('adicionei')
@@ -104,7 +89,7 @@ export default function Task({ task, allComments }: TaskProps) {
         }
     }
 
-    console.log(allComments)
+    console.log(comments)
 
 
     // useEffect(() => {
@@ -127,9 +112,7 @@ export default function Task({ task, allComments }: TaskProps) {
     //         setComments(postsComments)
     //     })
 
-
     //     return () => unsubscribed()
-
     // }, [])
 
 
@@ -170,8 +153,8 @@ export default function Task({ task, allComments }: TaskProps) {
                 {comments.map((item) => (
                     <article key={item.id} className={styles.comment}>
                         <div className={styles.headComment}>
-                            <label className={styles.commentsLabel}>{item.author?.name}</label>
-                            {item.author?.email === session?.user?.email && (
+                            <label className={styles.commentsLabel}>{item?.userName}</label>
+                            {item?.email === session?.user?.email && (
                                 <button
                                     className={styles.buttonTrash}>
                                     <FaTrash size={18} color="#EA3140"
@@ -223,8 +206,10 @@ export const getServerSideProps: GetServerSideProps = async ({ params, req }) =>
         comments.push({
             id: doc.id,
             comment: doc.data()?.comment,
-            createdAt: doc.data()?.createdAt,
-            author: doc.data()?.author,
+            // createdAt: new Date(),
+            userName: doc.data()?.userName,
+            email: doc.data()?.email,
+            image: doc.data()?.image,
             idTask: doc.data()?.id
         })
     })
