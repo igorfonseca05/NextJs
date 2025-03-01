@@ -319,3 +319,8 @@ async function handleSubmit(event: FormEvent) {
   }
 }
 ```
+
+# Tarefas-nextJs
+
+Tarefas é um projeto em Next.js onde usuários podem cadastrar tarefas e receber comentários de outros usuários. A autenticação é feita via Google OAuth usando NextAuth, com dados armazenados no Firebase.
+b8dd0f0c48458248c01de25753b7680de129bea4
