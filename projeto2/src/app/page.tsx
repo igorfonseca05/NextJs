@@ -15,6 +15,7 @@ interface DataProps {
 
 async function getData() {
   try {
+    await new Promise((res) => { setTimeout(res, 3000) })
     const res = await fetch('https://api.github.com/users/igorfonseca05/repos')
 
     return res.json()

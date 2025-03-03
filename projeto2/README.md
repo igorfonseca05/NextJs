@@ -1,5 +1,5 @@
-![Group 20](https://github.com/user-attachments/assets/620a8888-e794-4276-8145-3dd494592c0c)
- 
+![alt text](public/Group%2020.png)
+
 ## Aula 55 - Conhecendo server components
 
 Server component é um componente react que executa completamente no lado do servidor, isso faz com que não inclua
@@ -71,4 +71,4 @@ export default function Loading() {
 }
 ```
 
-Agora quando a API demorar responder com os dados, será mostrado "Carregando..." na página ao invés da página ficar carregando e esperando a resposta da API.
+Agora quando a API demorar responder com os dados, será mostrado "Carregando..." na página ao invés da página ficar carregando e esperando a resposta da API. O
