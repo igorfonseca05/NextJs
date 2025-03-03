@@ -102,9 +102,30 @@ export default function RootLayout({
 
 ### Criando menu como layout
 
+Na pasta `src` crie a pasta `components` e dentro dela o arquivo, Navbar.jsx.
+
+```javascript
+import Link from "next/link";
+
+export default function Navbar() {
+  return (
+    <header>
+      <nav>
+        <Link href={"/"}>Home</Link>
+        <Link href={"/contato"}>Contato</Link>
+      </nav>
+    </header>
+  );
+}
+```
+
+Dentro do layout vamos importar o componente.
+
 ```javascript
 import type { Metadata } from "next";
 import "./globals.css";
+
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -118,11 +139,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <header>My Website</header>
+      <Navbar />
       <body>{children}</body>
     </html>
   );
 }
 ```
 
-no exemplo acima, veremos o "my website" em todas as rotas da aplicação. Para criar um menu, é só criar um componente externo e importá-lo dentro do layout.
+no exemplo acima, veremos os links em todas as rotas da aplicação.
