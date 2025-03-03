@@ -1,5 +1,5 @@
-# Seção 6 - Evoluindo com diretório app
-
+![Group 20](https://github.com/user-attachments/assets/620a8888-e794-4276-8145-3dd494592c0c)
+ 
 ## Aula 55 - Conhecendo server components
 
 Server component é um componente react que executa completamente no lado do servidor, isso faz com que não inclua
