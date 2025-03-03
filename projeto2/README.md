@@ -124,3 +124,5 @@ export default function RootLayout({
   );
 }
 ```
+
+no exemplo acima, veremos o "my website" em todas as rotas da aplicação. Para criar um menu, é só criar um componente externo e importá-lo dentro do layout.
