@@ -147,3 +147,11 @@ export default function RootLayout({
 ```
 
 no exemplo acima, veremos os links em todas as rotas da aplicação.
+
+## Aula 57 - Evoluindo com layouts
+
+Nesta aula aprendemos como podemos criar layouts aninhados dentro de rotas. Por exemplo, caso tenhamos uma rota 
+
+   /dashboard
+
+no nosso projeto, 
