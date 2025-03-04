@@ -100,6 +100,8 @@ export default function RootLayout({
 }
 ```
 
+O **Metadata** dentro do componente é onde adicionamos metadados do nosso projeto que serão responsáveis por auxiliar os motores de busca do google e encontrar e recomendar nosso site.
+
 ### Criando menu como layout
 
 Na pasta `src` crie a pasta `components` e dentro dela o arquivo, Navbar.jsx.
@@ -148,10 +150,36 @@ export default function RootLayout({
 
 no exemplo acima, veremos os links em todas as rotas da aplicação.
 
-## Aula 57 - Evoluindo com layouts
+## Aula 58 - Evoluindo com layouts
 
-Nesta aula aprendemos como podemos criar layouts aninhados dentro de rotas. Por exemplo, caso tenhamos uma rota 
+Nesta aula aprendemos como podemos criar layouts aninhados dentro de páginas. Por exemplo, caso tenhamos uma rota
 
-   /dashboard
+    /dashboard
 
-no nosso projeto, 
+no nosso projeto, podemos criar estruturas que serão compartilhadas entre essa rota e rotas aninhadas a ela. Vejamos um exemplo para simplificar as coisas. Suponha que tenhamos a rota mencionada acima e detro da pasta `dashboard`, criamos outra pasta com nome `settings`. Na pratica o que estamos fazendo é criando uma rota aninhada que terá como endpoint a url:
+
+    /dashboard/settings
+
+Caso tenhamos adicinado um layout.tsx dentro da pasta dashboard, todo componente que adicionarmos dentro desse layout será compartilhado somente entre as rotas dashboard e suas paginas aninhadas. Veja o exemplo de layout.tsx criado dentro da pasta `dashboard` abaixo:
+
+```javascript
+export const metadata = {
+  title: "Minha pagina dashboard",
+  description: "Essa é a minha pagina de dashboard",
+};
+
+export default function DashboardLayout({
+  children,
+}: {
+  children: React.ReactNode,
+}) {
+  return (
+    <>
+      <h3>Meu layout aninhado</h3>
+      {children}
+    </>
+  );
+}
+```
+
+## Aula 59 - Usando client components dentro de server components
