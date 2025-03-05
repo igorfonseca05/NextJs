@@ -253,3 +253,36 @@ export default async function Home() {
 Agora dentro do client components podemos utilizar hooks e alterar estados de variaveis normalmente. Essa integração pode ser muito útil para o caso de precisarmos adicinar interatividade na nossa aplicação.
 
 ## Aula 60 - Criando páginas dinâmicas
+
+Temos duas formas diferentes de criarmos páginas dentro do nextJs.
+
+1️⃣ Caso estejamos utilizando o **App Routes**(app/) devemos fazer:
+
+      app/repos/[id]/page.tsx
+
+2️⃣ Caso estejamos utilizando o **Pages Routes**(pages/) fazemos:
+
+      pages/repos/[id].tsx
+
+Aqui utilizamos o primeiro caso, ou seja, dentro da rota **repos** criamos uma sub rota que será uma pagina dinamica. Dentro da rota dinamica criamos
+uma página utilizando o formato padrão de páginas no next.
+
+```javascript
+interface ParamsProps {
+  params: {
+    id: string,
+  };
+}
+
+export default function UniqueRepo({ params }: ParamsProps) {
+  if (!params?.id) return <p>Carregando...</p>;
+
+  return (
+    <>
+      <div>
+        <h1>pagina dinamica {params.id}</h1>
+      </div>
+    </>
+  );
+}
+```

@@ -1,4 +1,5 @@
 
+import Link from "next/link"
 
 interface DataProps {
     id: string
@@ -26,7 +27,6 @@ async function getRepos() {
 }
 
 
-
 export default async function Repo() {
     const data: DataProps[] = await getRepos()
 
@@ -36,7 +36,8 @@ export default async function Repo() {
             <p>Aqui mostramos meus repositórios</p>
             {data.map((item) => (
                 <div key={item.id} style={{ width: '50%' }}>
-                    <strong style={{ cursor: 'pointer' }}>{item.name}</strong>
+                    <Link href={`/repos/${item.id}`}>{item.name}</Link>
+                    {/* <strong style={{ cursor: 'pointer' }}>{item.name}</strong> */}
                     <p>{item.description}</p>
                 </div>
             ))}
