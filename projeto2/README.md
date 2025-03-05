@@ -184,4 +184,68 @@ export default function DashboardLayout({
 
 ## Aula 59 - Usando client components dentro de server components
 
-A integração entre um server component e client component é realizado por meio de props, onde dentro do server component importamos o client component, que é criado exatamente como fazemos no react, dentro da pasta components e então adicionamos o client component no local adequado dentro do server component.
+A integração entre um server component e client component é realizado por meio de props, onde dentro do server component importamos o client component, que é criado exatamente como fazemos no react, dentro da pasta components, e então adicionamos o client component no local adequado dentro do server component e caso haja algum dado para a ser manipulado pelo client component, esse deve ser recebido via props.
+
+### client component
+
+```javascript
+"use client";
+
+export function Button({ repoName }) {
+  return (
+    <>
+      <button>{repoName}</button>
+    </>
+  );
+}
+```
+
+### server component
+
+```javascript
+
+// Importamos client component
+import Button from '@/components/button'
+
+interface DataProps {
+  id: number,
+  name: string,
+  private: boolean,
+  full_name: string,
+  owner: {
+    login: string,
+    id: number,
+    avatar_url: string
+  }
+}
+
+
+async function getData() {
+  try {
+    await new Promise((res) => { setTimeout(res, 1000) })
+    const res = await fetch('https://api.github.com/users/igorfonseca05/repos')
+
+    return res.json()
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export default async function Home() {
+
+  const data: DataProps[] = await getData()
+
+  return (
+    <div>
+      <h1>Bem vindo a pagina home</h1>
+
+      <h2>Repositórios</h2>
+      {data.map((item) => (
+        <p key={item.id}><strong>Repositório: </strong>{item.name}</p>
+        <Button repoName={item.name}>
+      ))}
+    </div>
+  );
+}
+
+```
