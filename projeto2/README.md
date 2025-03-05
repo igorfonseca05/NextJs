@@ -249,3 +249,7 @@ export default async function Home() {
 }
 
 ```
+
+Agora dentro do client components podemos utilizar hooks e alterar estados de variaveis normalmente. Essa integração pode ser muito útil para o caso de precisarmos adicinar interatividade na nossa aplicação.
+
+## Aula 60 - Criando páginas dinâmicas
