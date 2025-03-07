@@ -286,3 +286,33 @@ export default function UniqueRepo({ params }: ParamsProps) {
   );
 }
 ```
+
+## Aula 61 - Criando grupo de paginas
+
+Caso queiramos criar um grupo de páginas relacionadas num único diretório, devemos criar uma nova pasta com o nome entre parenteses () e mover as rotas(pastas) para dentro do grupo de páginas desejado. Abaixo criamos 4 grupos de paginas e dentro delas adicinamos as rotas da aplicação. Todas as rotas serão acessiveis, porém essa tecnica mantem o código mais organizado.
+
+┣ 📂 (Admin)  
+ ┃ ┣ 📂 users  
+ ┃ ┣ 📂 dashboard  
+ ┃ ┗ 📜 layout.tsx
+
+┣ 📂 (Client)  
+ ┃ ┣ 📂 profile  
+ ┃ ┣ 📂 orders  
+ ┃ ┗ 📜 layout.tsx
+
+┣ 📂 (Private)  
+ ┃ ┣ 📂 settings  
+ ┃ ┣ 📂 payments  
+ ┃ ┗ 📜 layout.tsx
+
+┣ 📂 (Public)  
+ ┃ ┣ 📂 home  
+ ┃ ┣ 📂 about  
+ ┃ ┗ 📜 layout.tsx
+
+┗ 📜 layout.tsx
+
+## Aula 62 - Cache e revalidade
+
+Para evitar que haja busca de dados no nossa API de maneira descessária, poder utilizar o revalidate ou o cache para menter os dados obtidos na primeira requisição
