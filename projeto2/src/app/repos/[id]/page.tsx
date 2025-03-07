@@ -13,7 +13,7 @@ export default function UniqueRepo({ params }: ParamsProps) {
     return (
         <>
             <div>
-                <h1>pagina dinamica {params.id}</h1>
+                <h1>pagina dinamic {params.id}</h1>
             </div>
         </>
     )
