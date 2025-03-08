@@ -53,7 +53,7 @@ async function ListaRepos() {
   return (
     <>
       {data.map((item) => (
-        <p key={item.id}><strong>Repositóri: </strong>{item.name}</p>
+        <p key={item.id}><strong>Repositório: </strong>{item.name}</p>
       ))}
     </>
   );
