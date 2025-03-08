@@ -17,7 +17,7 @@ interface DataProps {
 async function getData() {
   try {
     await new Promise((res) => { setTimeout(res, 3000) })
-    const res = await fetch('https://api.github.com/users/igorfonseca05/repos')
+    const res = await fetch('https://api.github.com/users/igorfonseca05/repos', { cache: "force-cache" })
 
     return res.json()
   } catch (error) {
