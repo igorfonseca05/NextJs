@@ -315,4 +315,4 @@ Caso queiramos criar um grupo de páginas relacionadas num único diretório, de
 
 ## Aula 62 - Cache e revalidade
 
-Para evitar que haja busca de dados no nossa API de maneira descessária, poder utilizar o revalidate ou o cache para menter os dados obtidos na primeira requisição
+Para evitar que haja busca de dados no nossa API de maneira descessária, poder utilizar o revalidate ou o cache para menter os dados obtidos na primeira requisição salvos em um CND no servidor para se enviado como resposta
