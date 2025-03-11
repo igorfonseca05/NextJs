@@ -315,4 +315,24 @@ Caso queiramos criar um grupo de páginas relacionadas num único diretório, de
 
 ## Aula 62 - Cache e revalidade
 
-Para evitar que haja busca de dados no nossa API de maneira descessária, poder utilizar o revalidate ou o cache para menter os dados obtidos na primeira requisição salvos em um CND no servidor para se enviado como resposta
+Para evitar que haja busca de dados no nossa API de maneira descessária, poder utilizar o revalidate ou o cache. Ambos são **options** passadas como argumento para o método fetch, sendo o cache usado como padrão dentro do método, o que significa que os dados obtidos numa requisição são armazenados pelo `fetch`. O _revalidate_ é o tempo que um dado cacheado pelo fetch tem de vida antes do servidor ter de fazer outra requisição para os dados atualizados em cache novamente. Para adicionar esse recurso ao nosso projeto fazemos
+
+```javascript
+const data = await fetch("https://api.github.com/users/igorfonseca05/repos", {
+  cache: "force-cache",
+  revalidate: 60,
+});
+```
+
+No exemplo acima o dado será armazenado em cache e revalidado a cada 60 segundos, ou seja, ao final dos 60 segundos, o servidor irá fazer uma nova solicitação a API externa a salvar dos novos dados em cache por mais 60 segundos.
+
+### Quando usar esse recurso?
+
+A tabela abaixo mostra como podemos decidir quando ou não usar o recurso de cache e revalidate.
+
+| Tipo de página                              | Dados mudam?   | Melhor opção                 |
+| ------------------------------------------- | -------------- | ---------------------------- |
+| Página estática (ex: Sobre, Termos de uso.) | Não            | `cache: 'force-cache'`       |
+| Lista de produtos                           | Ocasionalmente | `next: { revalidate: 3600 }` |
+| Notícias                                    | Frequentemente | `next: { revalidate: 300 }`  |
+| Dashboard em tempo real                     | Sempre         | `cache: 'no-store'`          |
