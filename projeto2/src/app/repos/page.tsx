@@ -15,7 +15,7 @@ async function getRepos() {
         const res = await fetch('https://api.github.com/users/igorfonseca05/repos')
 
         if (!res.ok) {
-            throw new Error('Error ao obter dados')
+            throw new Error('Error ao obter ')
         }
 
         return res.json()
