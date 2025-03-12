@@ -328,7 +328,7 @@ No exemplo acima o dado será armazenado em cache e revalidado a cada 60 segundo
 
 ### Quando usar esse recurso?
 
-A tabela abaixo mostra como podemos decidir quando ou não usar o recurso de cache e revalidate.
+A tabela abaixo mostra como podemos decidir quando ou não usar o recurso de cache e revalidate
 
 | Tipo de página                              | Dados mudam?   | Melhor opção                 |
 | ------------------------------------------- | -------------- | ---------------------------- |
