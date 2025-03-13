@@ -397,22 +397,38 @@ export default function NotFound() {
 
 ## Aula 65 - Aplicando metadata
 
-Metadados são importantes para melhorar a visibilidade do seu site em mecânismos de buscas. No nextjs existem duas formas de adicionar metadados à sua aplicação.
+Metadados são importantes para definir as tags `meta` e `link` dentro do HTML de modo a melhorar a visibilidade do nosso site em mecânismos de buscas, sendo eles suportados somente em server components. No nextjs existem duas formas de adicionar metadados à sua aplicação.
 
 - **Metadados baseados em configuração**: exportar um objeto de metadado estático ou uma função dinamica `generateMetada` no layout.tsx ou `page.tsx`
 - **Metadados baseados em arquivo**: Adicione arquivos especiais estáticos ou gerados dinamicamente aos segmentos de rota
 
 ### Static Metadata
 
-Para definir metadados estáticos, exporte um objeto `Metadata` na `layout.tsx` ou `page.tsx` especifica:
+Para definir metadados estáticos, exporte um objeto `Metadata` na `layout.tsx` ou `page.tsx` estática:
 
 ```javascript
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "...",
-  description: "..",
+  title: "...", // Define o título da página
+  description: "..", // Define a descrição da página
+  keywords: ['nextjs', 'javascript'], // Define palavras-chave para SEO
+  openGraph: {
+    images: ['url1', 'url2', ...] // Define imagens para compartilhamento em redes sociais
+  },
+  robots: {
+    index: true, // Permite que os motores de busca indexem a página
+    follow: true, // Permite que os motores de busca sigam os links da página
+    nocache: true, // Impede que a página seja armazenada em cache pelos motores de busca
+    googleBot: {
+      index: true, // Permite que o Google indexe a página
+      follow: true, // Permite que o Google siga os links da página
+      noimageIndex: true // Impede que o Google indexe imagens da página
+    }
+  }
 };
 
 export default function Page() {}
 ```
+
+O código acima pode ser copiado e colado em todas as páginas server side do nosso projeto adicionando dados especificos da página, como title e outros.
