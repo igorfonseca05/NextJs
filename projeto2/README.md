@@ -394,3 +394,25 @@ export default function NotFound() {
   );
 }
 ```
+
+## Aula 65 - Aplicando metadata
+
+Metadados são importantes para melhorar a visibilidade do seu site em mecânismos de buscas. No nextjs existem duas formas de adicionar metadados à sua aplicação.
+
+- **Metadados baseados em configuração**: exportar um objeto de metadado estático ou uma função dinamica `generateMetada` no layout.tsx ou `page.tsx`
+- **Metadados baseados em arquivo**: Adicione arquivos especiais estáticos ou gerados dinamicamente aos segmentos de rota
+
+### Static Metadata
+
+Para definir metadados estáticos, exporte um objeto `Metadata` na `layout.tsx` ou `page.tsx` especifica:
+
+```javascript
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "...",
+  description: "...",
+};
+
+export default function Page() {}
+```
