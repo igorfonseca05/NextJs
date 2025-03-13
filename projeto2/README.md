@@ -336,3 +336,6 @@ A tabela abaixo mostra como podemos decidir quando ou não usar o recurso de cac
 | Lista de produtos                           | Ocasionalmente | `next: { revalidate: 3600 }` |
 | Notícias                                    | Frequentemente | `next: { revalidate: 300 }`  |
 | Dashboard em tempo real                     | Sempre         | `cache: 'no-store'`          |
+
+## Aula 63 - Error page
+
