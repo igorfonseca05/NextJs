@@ -339,3 +339,58 @@ A tabela abaixo mostra como podemos decidir quando ou não usar o recurso de cac
 
 ## Aula 63 - Error page
 
+Podemos criar páginas de erro dentro do nosso projeto nextJS, que será mostrado em tela caso de algum erro numa requisição, por exemplo. Dentro da pasta que aninha a página que vc quer adicionar a página de erro crie o arquivo `error.tsx`.
+
+#### Error.tsx
+
+```javascript
+"use client";
+
+import { useEffect } from "react";
+
+export default function Error({
+  error,
+  reset,
+}: {
+  error: Error,
+  reset: () => void,
+}) {
+  useEffect(() => {
+    console.log(error);
+  }, [error]);
+
+  return (
+    <div>
+      <p>{error}</p>
+      <button onClick={() => reset()}> Try again </button>
+    </div>
+  );
+}
+```
+
+:warning: Páginas de error no nextJS deve sempre ser do tipo 'use client'
+
+no código acima temos um componente de error que recebe dois parametros como props
+
+1. **error** = Instancia do objeto de erro lançado sobre o erro
+   - **error.message** = Mostra a mensagem de error original
+   - **error.digest** = Um hash gerado automaticamente do erro lançado. Ele pode ser usado para corresponder ao erro correspondente em logs do lado do servidor.
+2. **reset** = Funçao para tentar resetar a página
+
+## Aula 64 - Not found page
+
+Quando o usuário tenta acessar uma página que não existe na nossa aplicação, ele será redirecionado a uma página que não existe, podemos estilizar essa página criando um arquivo na raiz do projeto ou na rota chamado `not-found.tsx`. Dentro desse arquivo fazemos:
+
+```javascript
+import Link from "next/link";
+
+export default function NotFound() {
+  return (
+    <div>
+      <h2>Página não encontrada</h2>
+      <p>Essa página não foi encontrada</p>
+      <Link href="/">Return Home</Link>
+    </div>
+  );
+}
+```
