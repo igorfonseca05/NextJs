@@ -411,7 +411,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "...",
-  description: "...",
+  description: "..",
 };
 
 export default function Page() {}
