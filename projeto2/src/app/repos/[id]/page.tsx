@@ -6,7 +6,7 @@ interface ParamsProps {
 }
 
 
-export default function UniqueRepo({ params }: ParamsProps) {
+export default function UniqueRepo({ params }: { params: { id: string } }) {
 
     if (!params?.id) return <p>Carregando...</p>
 
