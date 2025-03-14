@@ -432,3 +432,89 @@ export default function Page() {}
 ```
 
 O código acima pode ser copiado e colado em todas as páginas server side do nosso projeto adicionando dados especificos da página, como title e outros.
+
+## Aula 66 - Relembrando conhecimentos
+
+Nesta aula revisamos o que vimos acima
+
+## Aula 67 - Conhecendo Api routes
+
+Podemos usar a pasta Api routes para criar rotas backend dentro do nosso projeto. Para isso criamos uma pasta chamada `api` dentro da pasta `app`. Dentro da `api` criamos uma pasta que vai receber o nome da rota, por exemplo, se quisermos a rota **user** na nossa api devemos fazer
+
+    app/
+      └── api/
+           └── user/
+                  └── route.ts
+
+Agora dentro do route.ts fazemos
+
+```javascript
+import { NextResponse } from "next/server";
+
+let tarefas = ["comprar carro", "casa"];
+
+export async function GET(request: Request) {
+  return NextResponse.json(tarefas);
+}
+```
+
+para acessar essa rota dentro da nossa aplicação, fazemos:
+
+    http://localhost:3000/api/user
+
+## Aula 66 - Evoluindo api routes
+
+Podemos usar outros métodos HTTP
+
+### GET
+
+```javascript
+import { NextResponse } from "next/server";
+
+let tarefas = ["comprar carro", "casa"];
+
+export async function GET(request: Request) {
+  return NextResponse.json(tarefas);
+}
+```
+
+### POST
+
+```JAVASCRIPT
+export async function POST(request: Request) {
+  const data = await request.json(); // Dados que serão recebidos na API
+  console.log(data);
+
+  return NextResponse.json({'Aqui colocamos uma reposta(obj,arra,string...)'});
+}
+```
+
+### PUT
+
+```JAVASCRIPT
+export async function PUT(request: Request) {
+    const {searchParams} = new URL(request.url) //Pega search params
+    const index = searchParams.get('index');
+
+    const data = await request.json();
+
+    tarefas[Number(index)] = data.name
+
+    return NextResponse.json({message: 'Tarefa atualizada com sucesso'})
+}
+```
+
+### DELETE
+
+```JAVASCRIPT
+export async function DELETE(request: Request) {
+    const {searchParams} = new URL(request.url) //Pega search params
+    const index = searchParams.get('index'); // nome do seachParams que vc quer pegar
+
+    const data = await request.json();
+
+    tarefas[Number(index)] = data.name
+
+    return NextResponse.json({message: 'Tarefa atualizada com sucesso'})
+}
+```
