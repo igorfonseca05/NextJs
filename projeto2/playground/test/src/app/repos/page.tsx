@@ -1,12 +1,12 @@
 import Link from "next/link"
 
-interface error {
+interface Error {
     message: string,
     documentation_url: string,
     status: string
 }
 
-interface data {
+interface DataProps {
     id: number,
     node_id: string,
     name: string,
@@ -38,7 +38,7 @@ async function getRepos() {
 
 
 export default async function page() {
-    const data: data[] = await getRepos()
+    const data: DataProps[] = await getRepos()
 
     return (
         <div>
