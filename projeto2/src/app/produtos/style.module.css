@@ -1,0 +1,10 @@
+.container {
+    display: flex;
+}
+
+.lateralAside {
+    position: relative;
+    max-width: 20%;
+    text-align: justify;
+    margin-right: 1em;
+}
