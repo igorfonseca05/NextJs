@@ -1,13 +1,14 @@
 .navBarContainer {
     display: flex;
     justify-content: end;
-    background-color: #E65100;
+    background-color: #8bc34a;
+    /* margin-bottom: 1rem; */
 }
 
 .navBarContainer nav {
     padding: 1.5rem;
     max-width: fit-content;
-    background-color: aqua;
+    /* background-color: aqua; */
     margin-right: 2rem;
     /* margin-left: 2rem !important; */
 }
@@ -16,4 +17,5 @@
     color: white;
     padding-left: 1rem;
     text-decoration: none;
+    font-weight: 600;
 }
