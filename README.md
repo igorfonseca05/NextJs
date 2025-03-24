@@ -6,19 +6,13 @@ Este espaço é dedicado a anotações e resumos sobre recursos importantes do N
 
 ## Sumário
 
-### Section 5
+* [Section 5](#section-5)  
+* [Section 6](#section-6)
 
-- [Nota 1 - Criando rotas no Next.js](#nota-1---criando-rotas-no-nextjs)
-- [Nota 2 - Compartilhar componentes entre páginas](#nota-2---compartilhar-componentes-entre-paginas)
-- [Nota 3 - Criando componentes](#nota-3---criando-componentes)
-- [Nota 4 - Estrutura de componentes no Next](#nota-4---estrutura-de-componentes-no-next)
-- [Nota 5 - Componentes internos NextJs](#nota-5---componentes-internos-nextjs)
-- [Nota 6 - Criar sistema de autenticação usando provedores federados](#nota-6---criar-sistema-de-autenticacao-usando-provedores-federados)
-- [Nota 7 - Utilizando GetServerSideProps](#nota-7---utilizando-getserversideprops)
-- [Nota 8 - Criando componente textArea](#nota-8---componente-textarea)
-- [Nota 9 - Adicionando Task ao firebase](#nota-9---adicionando-tasks-ao-firebase)
-- 
-### Section 6
+
+
+
+### Section 5
 
 - [Nota 1 - Criando rotas no Next.js](#nota-1---criando-rotas-no-nextjs)
 - [Nota 2 - Compartilhar componentes entre páginas](#nota-2---compartilhar-componentes-entre-paginas)
@@ -338,8 +332,7 @@ Tarefas é um projeto em Next.js onde usuários podem cadastrar tarefas e recebe
 b8dd0f0c48458248c01de25753b7680de129bea4
 
 
-
-![alt text](public/Group%2020.png)
+# Section 6
 
 ## Aula 55 - Conhecendo server components
 
