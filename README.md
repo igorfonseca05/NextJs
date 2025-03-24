@@ -6,11 +6,51 @@ Este espaço é dedicado a anotações e resumos sobre recursos importantes do N
 
 ## Sumário
 
+* [Section 4](#section-4)  
 * [Section 5](#section-5)  
 * [Section 6](#section-6)
 
 
 
+
+### Section 4
+
+- [Aula 30 - O que é Next.js?](#aula-30---o-que-é-nextjs)
+- [Aula 31 - Entendendo a estrutura](#aula-31---entendendo-a-estrutura)
+- [Aula 32 - Comandos para criar seu primeiro projeto](#aula-32---comandos-para-criar-seu-primeiro-projeto)
+
+
+## Aula 30 - O que é Next.js?
+Next.js é um framework para React que permite a criação de aplicações web modernas, otimizadas e escaláveis. Ele oferece funcionalidades como renderização no servidor (SSR), geração estática de páginas (SSG), suporte a API Routes e otimizações automáticas para melhorar o desempenho da aplicação. Desenvolvido pela Vercel, o Next.js é amplamente utilizado para criar aplicações robustas e eficientes.
+
+## Aula 31 - Entendendo a estrutura
+Um projeto Next.js segue uma estrutura organizada para facilitar o desenvolvimento. Os principais diretórios e arquivos são:
+
+- **`pages/`**: Contém os arquivos das páginas da aplicação. Cada arquivo dentro dessa pasta representa uma rota.
+- **`public/`**: Armazena arquivos estáticos como imagens e ícones.
+- **`styles/`**: Contém arquivos de estilos globais.
+- **`components/`** (opcional): Pasta comum para armazenar componentes reutilizáveis.
+- **`api/`** (dentro de `pages/`): Usado para criar rotas de API backend.
+- **`next.config.js`**: Arquivo de configuração do Next.js.
+- **`.next/`**: Diretório gerado automaticamente com os arquivos de build.
+
+## Aula 32 - Comandos para criar seu primeiro projeto
+Para criar um projeto Next.js do zero, siga os passos abaixo:
+
+1. Instale o Node.js caso ainda não tenha instalado.
+2. Execute o seguinte comando no terminal para criar um novo projeto:
+   ```sh
+   npx create-next-app@latest meu-projeto
+   ```
+3. Acesse o diretório do projeto:
+   ```sh
+   cd meu-projeto
+   ```
+4. Inicie o servidor de desenvolvimento:
+   ```sh
+   npm run dev
+   ```
+5. Abra o navegador e acesse `http://localhost:3000/` para visualizar a aplicação rodando.
 
 ### Section 5
 
