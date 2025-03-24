@@ -334,20 +334,17 @@ b8dd0f0c48458248c01de25753b7680de129bea4
 
 # Section 6
 
-- [Aula 55 - Conhecendo server components](#conhecendo-server-components)
-- [Aula 56 - Revendo componentes](#revendo-componentes)
-- [Aula 57 - Conhecendo loading](#conhecendo-loading)
-- [Aula 58 - Evoluindo com layouts](#evoluindo-com-layouts)
-- [Aula 59 - Usando client componente dentro de server components](#usando-client-componente-dentro-de-server-components)
-- [Aula 60 - Criando páginas dinâmicas](#criando-páginas-dinâmicas)
-- [Aula 61 - Criando grupo de páginas](#criando-grupo-de-páginas)
-- [Aula 62 - Cache e revalidação](#cache-e-revalidação)
-- [Aula 63 - Error page](#error-page)
-- [Aula 64 - Not found page](#not-found-page)
-- [Aula 65 - Aplicando metadata](#aplicando-metadata)
-- [Aula 66 - Relembrando conhecimentos](#relembrando-conhecimentos)
-- [Aula 67 - Conhecendo Api routes](#conhecendo-api-routes)
-- [Aula 68 - Evoluindo api routes](#evoluindo-api-routes)
+- [Aula 55 - Conhecendo server components](#aula-55---conhecendo-server-components)
+- [Aula 56 - Revendo componentes](#aula-56---revendo-componentes)
+- [Aula 57 - Conhecendo loading](#aula-57---conhecendo-loading)
+- [Aula 58 - Evoluindo com layouts](#aula-58---evoluindo-com-layouts)
+- [Aula 59 - Usando client components dentro de server components](#aula-59---usando-client-components-dentro-de-server-components)
+- [Aula 60 - Criando páginas dinâmicas](#aula-60---criando-páginas-dinâmicas)
+- [Aula 61 - Criando grupo de páginas](#aula-61---criando-grupo-de-páginas)
+- [Aula 62 - Cache e revalidade](#aula-62---cache-e-revalidade)
+- [Aula 63 - Error page](#aula-63---error-page)
+- [Aula 64 - Not found page](#aula-64---not-found-page)
+- [Aula 65 - Aplicando metadata](#aula-65---aplicando-metadata)
 
 
 ## Aula 55 - Conhecendo server components
