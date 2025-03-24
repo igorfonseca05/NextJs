@@ -14,15 +14,15 @@ Este espaço é dedicado a anotações e resumos sobre recursos importantes do N
 
 ### Section 5
 
-- [Nota 1 - Criando rotas no Next.js](#nota-1---criando-rotas-no-nextjs)
-- [Nota 2 - Compartilhar componentes entre páginas](#nota-2---compartilhar-componentes-entre-paginas)
-- [Nota 3 - Criando componentes](#nota-3---criando-componentes)
-- [Nota 4 - Estrutura de componentes no Next](#nota-4---estrutura-de-componentes-no-next)
-- [Nota 5 - Componentes internos NextJs](#nota-5---componentes-internos-nextjs)
-- [Nota 6 - Criar sistema de autenticação usando provedores federados](#nota-6---criar-sistema-de-autenticacao-usando-provedores-federados)
-- [Nota 7 - Utilizando GetServerSideProps](#nota-7---utilizando-getserversideprops)
-- [Nota 8 - Criando componente textArea](#nota-8---componente-textarea)
-- [Nota 9 - Adicionando Task ao firebase](#nota-9---adicionando-tasks-ao-firebase)
+- [Aula 1 - Criando rotas no Next.js](#nota-1---criando-rotas-no-nextjs)
+- [Aula 2 - Compartilhar componentes entre páginas](#nota-2---compartilhar-componentes-entre-paginas)
+- [Aula 3 - Criando componentes](#nota-3---criando-componentes)
+- [Aula 4 - Estrutura de componentes no Next](#nota-4---estrutura-de-componentes-no-next)
+- [Aula 5 - Componentes internos NextJs](#nota-5---componentes-internos-nextjs)
+- [Aula 6 - Criar sistema de autenticação usando provedores federados](#nota-6---criar-sistema-de-autenticacao-usando-provedores-federados)
+- [Aula 7 - Utilizando GetServerSideProps](#nota-7---utilizando-getserversideprops)
+- [Aula 8 - Criando componente textArea](#nota-8---componente-textarea)
+- [Aula 9 - Adicionando Task ao firebase](#nota-9---adicionando-tasks-ao-firebase)
 
 ### Nota 1 - Criando rotas no Nextjs
 
@@ -333,6 +333,22 @@ b8dd0f0c48458248c01de25753b7680de129bea4
 
 
 # Section 6
+
+- [Aula 55 - Conhecendo server components](#conhecendo-server-components)
+- [Aula 56 - Revendo componentes](#revendo-componentes)
+- [Aula 57 - Conhecendo loading](#conhecendo-loading)
+- [Aula 58 - Evoluindo com layouts](#evoluindo-com-layouts)
+- [Aula 59 - Usando client componente dentro de server components](#usando-client-componente-dentro-de-server-components)
+- [Aula 60 - Criando páginas dinâmicas](#criando-páginas-dinâmicas)
+- [Aula 61 - Criando grupo de páginas](#criando-grupo-de-páginas)
+- [Aula 62 - Cache e revalidação](#cache-e-revalidação)
+- [Aula 63 - Error page](#error-page)
+- [Aula 64 - Not found page](#not-found-page)
+- [Aula 65 - Aplicando metadata](#aplicando-metadata)
+- [Aula 66 - Relembrando conhecimentos](#relembrando-conhecimentos)
+- [Aula 67 - Conhecendo Api routes](#conhecendo-api-routes)
+- [Aula 68 - Evoluindo api routes](#evoluindo-api-routes)
+
 
 ## Aula 55 - Conhecendo server components
 
