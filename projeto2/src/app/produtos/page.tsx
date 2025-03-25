@@ -29,9 +29,9 @@ export default async function page() {
                     <h1>Bem vindo a página de produtos</h1>
                     <p>Confira abaixo produtos com os melhores preços do mercado</p>
                 </div>
-                <Suspense fallback={<p>Carregando produtos, aguarde!</p>}>
-                    <Products />
-                </Suspense>
+                <Products />
+                {/* <Suspense fallback={<p>Carregando produtos, aguarde!</p>}>
+                </Suspense> */}
             </section>
         </div>
     );

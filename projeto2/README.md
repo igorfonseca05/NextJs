@@ -184,7 +184,7 @@ export default function DashboardLayout({
 
 ## Aula 59 - Usando client components dentro de server components
 
-A integração entre um server component e client component é realizado por meio de props, onde dentro do server component importamos o client component, que é criado exatamente como fazemos no react, dentro da pasta components, e então adicionamos o client component no local adequado dentro do server component e caso haja algum dado para a ser manipulado pelo client component, esse deve ser recebido via props.
+A integração entre um server component e client component é realizado por meio de props, onde dentro do server component importamos o client component, que é criado exatamente como fazemos no react, dentro da pasta components, e então adicionamos o client component no local adequado dentro do server component e caso haja algum dado para a ser manipulado pelo client component, esse deve ser recebido via props.  
 
 ### client component
 
