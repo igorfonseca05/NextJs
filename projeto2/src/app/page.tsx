@@ -50,6 +50,9 @@ export default async function Home() {
 async function ListaRepos() {
   const data: DataProps[] = await getData();
 
+
+  console.log('oi')
+
   return (
     <>
       {data.map((item) => (
