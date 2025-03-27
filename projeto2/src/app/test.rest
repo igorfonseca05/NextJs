@@ -17,4 +17,8 @@ Content-Type: application/json
 {
     "name": "Super Mario"
 }
-##
+###
+###
+DELETE http://localhost:3000/api/games?index=1
+Content-Type: application/json
+###

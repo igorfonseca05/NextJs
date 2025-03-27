@@ -6,7 +6,7 @@ const games = [
 ]
 
 export async function GET(request: Request) {
-   return NextResponse.json({message: 'oi'})
+   return NextResponse.json({games})
 }
 
 export async function POST(request: Request) {
@@ -24,9 +24,21 @@ export async function PUT(request: Request) {
    const index = searchParams.get('index')
 
    const data = await request.json()
-   
-   console.log(index)
-   console.log(data)
 
-   return NextResponse.json({})
+   games[Number(index)].name = data.name
+   
+   return NextResponse.json({message: "Dado atualizado com sucesso", game: games[Number(index)]})
+}
+
+
+// Deletando dado da API
+
+export async function DELETE(request: Request) {
+   const {searchParams} = new URL(request.url)
+   const index = searchParams.get('index')
+
+
+   delete games[Number(index)]
+
+   return NextResponse.json({message: 'Dado deletado com sucesso'})
 }
