@@ -7,7 +7,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 
-
 async function getRandomGame() {
   try {
     const res = await fetch(`${process.env.NEXT_URL}/next-api/?api=game_day`, { next: { revalidate: 300 } })
@@ -22,7 +21,6 @@ async function getRandomGame() {
     console.log(error)
   }
 }
-
 
 export default async function Home() {
   const dados: GamesProps = await getRandomGame()
@@ -45,9 +43,7 @@ export default async function Home() {
                 priority={true}
                 fill={true}
                 className="max-h-96 object-cover rounded-lg object-top opacity-50 hover:opacity-100 transition-all duration-300"
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw"
-              >
-              </Image>
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw" />
             </div>
           </section>
         </Link>
