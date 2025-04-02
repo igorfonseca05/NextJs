@@ -5,6 +5,7 @@ import { BsArrowRightCircle } from "react-icons/bs";
 
 import Link from "next/link";
 import Image from "next/image";
+import { Search_Bar } from "@/components/Search_Bar";
 
 
 async function getRandomGame() {
@@ -47,6 +48,7 @@ export default async function Home() {
             </div>
           </section>
         </Link>
+        <Search_Bar />
       </Container>
     </main>
   );
