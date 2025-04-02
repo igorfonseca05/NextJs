@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 
+import { GamesProps } from '@/utils/types/game'
+
+
 export function Search_Bar() {
 
     const [game, setGame] = useState('')

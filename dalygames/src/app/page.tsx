@@ -26,6 +26,8 @@ async function getRandomGame() {
 export default async function Home() {
   const dados: GamesProps = await getRandomGame()
 
+  console.log(dados)
+
   return (
     <main className="w-full">
       <Container>
