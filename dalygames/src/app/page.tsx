@@ -10,10 +10,25 @@ import { Search_Bar } from "@/components/Search_Bar";
 
 async function getRandomGame() {
   try {
-    const res = await fetch(`${process.env.NEXT_URL}/next-api/?api=game_day`, { next: { revalidate: 300 } })
+    const res = await fetch(`${process.env.NEXT_URL}/next-api/?api=game_day`, { next: { revalidate: 320 } })
 
     if (!res.ok) {
-      throw new Error('Erro ao obter dados')
+      throw new Error('Erro ao obter game')
+    }
+
+    return res.json()
+
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+async function getAllgames() {
+  try {
+    const res = await fetch(`${process.env.NEXT_URL}/next-api/?api=games`, { next: { revalidate: 320 } })
+
+    if (!res.ok) {
+      throw new Error('Erro ao obter games')
     }
 
     return res.json()
@@ -24,24 +39,23 @@ async function getRandomGame() {
 }
 
 export default async function Home() {
-  const dados: GamesProps = await getRandomGame()
-
-  // console.log(dados)
+  const game: GamesProps = await getRandomGame()
+  const games: GamesProps[] = await getAllgames()
 
   return (
-    <main className="w-full">
+    <main className="w-full h-screen">
       <Container>
         <h1 className="text-center font-bold text-xl mt-8 mb-5">Separamos um jogo exclusivo para você</h1>
-        <Link href={`game/${dados.id}`}>
+        <Link href={`game/${game.id}`}>
           <section className="w-full bg-black rounded-lg">
             <div className="w-full max-h-96 h-96 relative">
               <div className="absolute z-20 bottom-0 p-3 flex justify-center items-center gap-2">
-                <p className="font-bold text-lg text-white">{dados.title}</p>
+                <p className="font-bold text-lg text-white">{game.title}</p>
                 <BsArrowRightCircle size={22} color="white" />
               </div>
               <Image
-                src={dados.image_url}
-                alt={dados.title}
+                src={game.image_url}
+                alt={game.title}
                 quality={100}
                 priority={true}
                 fill={true}
@@ -51,6 +65,27 @@ export default async function Home() {
           </section>
         </Link>
         <Search_Bar />
+
+        <h2 className="text-xl font-medium text-gray-800 my-4">Jogos para conhecer</h2>
+        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {games.map(games => (
+            <Link href={`/${game.id}`} className="p-2 bg-slate-100 rounded-lg">
+              <div className="h-40 relative">
+                <Image
+                  key={games.id}
+                  src={games.image_url}
+                  alt="images game"
+                  className="object-cover rounded-lg"
+                  fill={true}
+                />
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <p>{game.title}</p>
+                <BsArrowRightCircle size={16} color="#000" />
+              </div>
+            </Link>
+          ))}
+        </div>
       </Container>
     </main>
   );

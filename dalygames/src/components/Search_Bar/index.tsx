@@ -4,8 +4,6 @@ import { FormEvent, useEffect, useState } from 'react'
 import { MdSearch } from 'react-icons/md'
 import { useRouter } from 'next/navigation'
 
-import { GamesProps } from '@/utils/types/game'
-
 
 export function Search_Bar() {
 
@@ -16,7 +14,6 @@ export function Search_Bar() {
         event.preventDefault()
 
         router.push(`/game/search/${game}`)
-
 
     }
 
