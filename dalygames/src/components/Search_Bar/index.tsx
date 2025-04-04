@@ -16,7 +16,6 @@ export function Search_Bar({ games }: Search_Bar) {
 
     const [game, setGame] = useState('')
     const [isOpen, setIsOpen] = useState(false)
-    const [allgames, setGames] = useState(games)
 
     const router = useRouter()
 
@@ -45,7 +44,7 @@ export function Search_Bar({ games }: Search_Bar) {
                         </button>
                     </label>
                 </form>
-                <SugestContainer isOpen={isOpen} setIsOpen={setIsOpen} />
+                <SugestContainer isOpen={isOpen} setIsOpen={setIsOpen} game={game} />
             </div>
         </>
 

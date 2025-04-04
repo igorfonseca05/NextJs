@@ -1,22 +1,17 @@
 "use client"
 
 import { createContext, useContext, useState } from "react"
-
-
 import { GamesProps } from "@/utils/types/game"
 
-interface AllProps {
-    games: {
-        games: GamesProps[]
-    }
-    children: React.ReactNode
+
+interface AllGamesProps {
+    games: GamesProps[]
 }
 
-export const GamesContext = createContext<AllProps | null>(null)
+export const GamesContext = createContext<AllGamesProps | null>(null)
 
-export function GamesProvider({ children, games }: AllProps) {
 
-    const [allGames, setAllGames] = useState('')
+export function GamesProvider({ children, games }: { children: React.ReactNode, games: GamesProps[] }) {
 
     return (
         <GamesContext.Provider value={{ games }}>
@@ -25,4 +20,11 @@ export function GamesProvider({ children, games }: AllProps) {
     )
 }
 
-export const useGames = () => useContext(GamesContext) 
+
+export const useGames = () => {
+    const context = useContext(GamesContext);
+    if (!context) {
+        throw new Error("useGame deve ser usado dentro de GameProvider");
+    }
+    return context
+}

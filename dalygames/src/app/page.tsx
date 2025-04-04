@@ -46,10 +46,8 @@ export default async function Home() {
   const game: GamesProps = await getRandomGame()
   const games: GamesProps[] = await getAllgames()
 
-  // console.log(games)
-
   return (
-    <GamesProvider value={games}>
+    <GamesProvider games={games}>
       <main className="w-full h-screen">
         <Container>
           <h1 className="text-center font-bold text-xl mt-8 mb-5">Separamos um jogo exclusivo para você</h1>
@@ -84,6 +82,7 @@ export default async function Home() {
                     alt="images game"
                     className="object-cover rounded-lg object-top"
                     fill={true}
+                    sizes="(max-width: 768px) 100%, 100vw"
                   // quality={100}
                   />
                 </div>
