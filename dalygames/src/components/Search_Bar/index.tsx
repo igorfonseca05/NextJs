@@ -6,17 +6,17 @@ import { useRouter } from 'next/navigation'
 import { SugestContainer } from './sugest'
 
 import { GamesProps } from '@/utils/types/game'
+import { SiGamescience } from 'react-icons/si'
 
 interface Search_Bar {
     games: GamesProps[]
 }
 
-
 export function Search_Bar({ games }: Search_Bar) {
-
 
     const [game, setGame] = useState('')
     const [isOpen, setIsOpen] = useState(false)
+    const [allgames, setGames] = useState(games)
 
     const router = useRouter()
 
@@ -26,7 +26,6 @@ export function Search_Bar({ games }: Search_Bar) {
         router.push(`/game/search/${game}`)
 
     }
-
 
     return (
         <>
