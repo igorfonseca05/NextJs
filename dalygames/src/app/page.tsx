@@ -38,6 +38,7 @@ async function getAllgames() {
   }
 }
 
+
 export default async function Home() {
   const game: GamesProps = await getRandomGame()
   const games: GamesProps[] = await getAllgames()
@@ -64,23 +65,24 @@ export default async function Home() {
             </div>
           </section>
         </Link>
-        <Search_Bar />
+        <Search_Bar games={games} />
 
         <h2 className="text-xl font-medium text-gray-800 my-4">Jogos para conhecer</h2>
-        <div className=" grid grid-cols-1 sm:grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {games.map(games => (
-            <Link href={`/${game.id}`} className="p-2 bg-slate-100 rounded-lg">
-              <div className="h-40 relative">
+        <div className=" grid grid-cols-1 gap-7 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4">
+          {games.map(game => (
+            <Link key={game.id} href={`/${game.id}`} className="p-2 bg-slate-200 rounded-lg hover:scale-105 transition-all duration-300 hover:shadow-lg">
+              <div className="h-56 w-full relative">
                 <Image
-                  key={games.id}
-                  src={games.image_url}
+                  key={game.id}
+                  src={game.image_url}
                   alt="images game"
-                  className="object-cover rounded-lg"
+                  className="object-cover rounded-lg object-top"
                   fill={true}
+                  quality={100}
                 />
               </div>
-              <div className="flex items-center justify-between mt-2">
-                <p>{game.title}</p>
+              <div className="flex items-center justify-between my-2">
+                <p className="whitespace-nowrap text-ellipsis overflow-hidden">{game.title}</p>
                 <BsArrowRightCircle size={16} color="#000" />
               </div>
             </Link>
