@@ -14,7 +14,6 @@ interface IsOpenProps {
     setIsOpen: (value: boolean) => void;
 }
 
-
 export function SugestContainer({ isOpen, setIsOpen, game }: IsOpenProps & { game: string }) {
 
     const { games } = useGames()
