@@ -12,7 +12,7 @@ interface Search_Bar {
     games: GamesProps[]
 }
 
-export function Search_Bar({ games }: Search_Bar) {
+export function Search_Bar() {
 
     const [game, setGame] = useState('')
     const [isOpen, setIsOpen] = useState(false)
@@ -22,7 +22,7 @@ export function Search_Bar({ games }: Search_Bar) {
     function handleSearchInput(event: FormEvent) {
         event.preventDefault()
 
-        router.push(`/game/search/${game}`)
+        router.push(`/games/search/${game}`)
 
     }
 

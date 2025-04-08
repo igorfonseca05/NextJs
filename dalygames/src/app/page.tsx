@@ -69,7 +69,7 @@ export default async function Home() {
               </div>
             </section>
           </Link>
-          <Search_Bar games={games} />
+          <Search_Bar />
 
           <h2 className="text-xl font-medium text-gray-800 my-4">Jogos para conhecer</h2>
           <div className=" grid grid-cols-1 gap-7 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4">
