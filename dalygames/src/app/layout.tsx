@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Delay games",
+  title: "Dalygames - Sua plataforma de games online",
   description: " Descubra jogos incriveis na nossa plataforma",
   keywords: ['games', 'jogos', 'steam', 'plataform'],
   openGraph: {
