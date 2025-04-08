@@ -74,7 +74,7 @@ export default async function Home() {
           <h2 className="text-xl font-medium text-gray-800 my-4">Jogos para conhecer</h2>
           <div className=" grid grid-cols-1 gap-7 sm:grid-cols-2  md:grid-cols-3 lg:grid-cols-4">
             {games.map(game => (
-              <Link key={game.id} href={`/${game.id}`} className="p-2 bg-slate-200 rounded-lg hover:scale-105 transition-all duration-300 hover:shadow-lg">
+              <Link key={game.id} href={`/games/${game.id}`} className="p-2 bg-slate-200 rounded-lg hover:scale-105 transition-all duration-300 hover:shadow-lg">
                 <div className="h-56 w-full relative">
                   <Image
                     key={game.id}
