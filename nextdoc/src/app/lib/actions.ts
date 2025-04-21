@@ -1,6 +1,9 @@
 
 'use server'
 
+import { revalidatePath } from "next/cache"
+import { redirect } from "next/navigation"
+
 
 export async function salvar(prevState: any, formData: FormData) {
     const nome = formData.get('nome')
@@ -8,6 +11,9 @@ export async function salvar(prevState: any, formData: FormData) {
     console.log(nome)
 
     await new Promise((resolve, reject) => setTimeout(() => resolve('resolvido'), 3000))
+
+    revalidatePath('/path')
+    redirect('/')
 
     return { message: 'Adicionado com sucesso!' }
 }
