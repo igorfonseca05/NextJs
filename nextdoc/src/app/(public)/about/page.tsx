@@ -2,6 +2,8 @@
 import { Form } from "@/app/components/form/Form"
 import { Post } from "@/app/components/Post/Post"
 
+import { Metadata } from "next"
+
 import { Suspense } from "react"
 
 
@@ -13,6 +15,12 @@ interface InfosProps {
     location: string
     public_repos: number
     html_url: string
+}
+
+export const metadata: Metadata = {
+    title: 'página sobre',
+    description: 'Está é a página sobre da minha aplicação'
+
 }
 
 async function getData() {
