@@ -2,20 +2,13 @@
 import { Form } from "@/app/components/form/Form"
 import { Post } from "@/app/components/Post/Post"
 
+// import { InfosProps } from "@/utils/types"
+
 import { Metadata } from "next"
-
+import { Repo_List } from "./reposList/repoList"
 import { Suspense } from "react"
+import LoadingFallback from "@/app/components/fallback"
 
-
-interface InfosProps {
-    avatar_url: string
-    name: string
-    bio: string
-    blog: string
-    location: string
-    public_repos: number
-    html_url: string
-}
 
 export const metadata: Metadata = {
     title: 'página sobre',
@@ -23,11 +16,12 @@ export const metadata: Metadata = {
 
 }
 
+
 async function getData() {
     try {
-        await new Promise((resolve, reject) => setTimeout(() => resolve('resolvido'), 1000))
+        await new Promise((resolve, reject) => setTimeout(() => resolve('resolvido'), 4000))
 
-        const res = await fetch('https://api.github.com/users/igorfonseca05')
+        const res = await fetch('https://jsonplaceholder.typicode.com/todos')
         return res.json()
     } catch (error) {
         console.log(error)
@@ -36,19 +30,17 @@ async function getData() {
 
 export default async function About() {
 
-    const infos: InfosProps = await getData()
+    const repos = getData()
+
+    // console.log([...Array])
 
     return (
         <div className="max-w-250 m-auto">
-            <h1 className="text-xl">Lorem ipsum dolor sit amet consectetur adipisicing elit. Non harum, consectetur, quae iste earum odio quidem reiciendis ad accusamus, possimus facere voluptatibus rem illum natus quasi porro voluptas eligendi quibusdam Lorem ipsum dolor sit amet consectetur adipisicing elit. Non harum, consectetur, quae iste earum odio qumus facere voluptatibus rem illum natus quasi porro voluptas eligendi quibusdam Lorem ipsum dolor sit amet consectetur adipisicing elit. Non harum, consectetur, quae iste earum odio quidem reiciendis ad accusamus, possimus facere voluptatibus rem illum natus quasi porro voluptas eligendi quibusdam.</h1>
-            <Suspense fallback={<div>Carregando...</div>}>
-                <div className="bg-gray-50 mt-6">
-                    <p>{infos.public_repos}</p>
-                </div>
+            <h1 className="text-xl">Lorem ipsum dolor.</h1>
+            {/* <Form /> */}
+            <Suspense fallback={<LoadingFallback />}>
+                <Repo_List data={repos} />
             </Suspense>
-
-            <Form />
-
             {/* <Post infos={infos} /> */}
         </div>
     )
