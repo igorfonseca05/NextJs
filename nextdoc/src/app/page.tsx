@@ -1,32 +1,31 @@
 'use client'
 
-import Image from "next/image";
-
-import { getPosts } from "./lib/serverFunctions";
-import { useState } from "react";
+import { InfosProps } from "@/utils/types"
+import { useState } from "react"
+import { getData } from "./lib/serverFunctions"
 
 export default function Home() {
 
-  const [posts, setPosts] = useState<{ title: string | undefined, content: string | undefined }[]>([])
-
+  const [data, setData] = useState<InfosProps[] | undefined>()
 
   return (
     <div className="">
       <h1>
         Bem vindo a aplicação da documentação nextJs
       </h1>
-      <button className="bg-sky-300 p-2 hover:bg-sky-500 hover:text-white" onClick={async () => {
-        const posts = await getPosts()
-        setPosts(posts)
-      }}>Obter posts</button>
+      <button onClick={async () => {
+        const res: InfosProps[] = await getData()
+        setData(res)
+
+
+      }} className="bg-sky-300 p-2 hover:bg-sky-500 hover:text-white">Obter posts</button>
 
       <div>
-        {posts.map(post => (
-          <div>
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
-          </div>
-        ))}
+        {
+          data?.map(item => (
+            <p>{item.title}</p>
+          ))
+        }
       </div>
     </div>
   );

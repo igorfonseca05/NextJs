@@ -32,12 +32,10 @@ export default async function About() {
 
     const repos = getData()
 
-    // console.log([...Array])
-
     return (
         <div className="max-w-250 m-auto">
             <h1 className="text-xl">Lorem ipsum dolor.</h1>
-            {/* <Form /> */}
+            <Form />
             <Suspense fallback={<LoadingFallback />}>
                 <Repo_List data={repos} />
             </Suspense>

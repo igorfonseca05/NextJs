@@ -1,18 +1,28 @@
 "use server"
 
-const posts: { title: string | undefined, content: string | undefined }[] = []
+import { redirect } from "next/navigation"
 
-export async function createPost(formData: FormData) {
+export async function createPost(_prevState: any, formData: FormData) {
 
-    const title = formData.get('title')?.toString()
-    const content = formData.get('content')?.toString()
+    const title = formData.get('title')
+    const content = formData.get('content')
 
-    const post = { title, content }
+    console.log(title, content)
 
-    posts.push(post)
+    await new Promise((resolve, reject) => setTimeout(() => resolve('resolvido'), 3000))
+
+    // redirect("/")
+
+    return { message: 'Adicionado com sucesso!' }
 }
 
-export async function getPosts() {
-    console.log(posts)
-    return posts
+export async function getData() {
+    try {
+        await new Promise((resolve, reject) => setTimeout(() => resolve('resolvido'), 4000))
+
+        const res = await fetch('https://jsonplaceholder.typicode.com/todos')
+        return res.json()
+    } catch (error) {
+        return { message: 'Error ao obter dados' }
+    }
 }
