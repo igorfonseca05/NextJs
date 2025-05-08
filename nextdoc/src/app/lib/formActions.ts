@@ -1,26 +1,56 @@
 'use server'
 
-import { teste } from "./definitions";
+import { userDataSchema } from "./definitions";
+import { hash } from 'argon2'
+import clientPromise from "./mongodb";
+import { redirect } from "next/navigation";
 
-export async function createUser(state: any, formData: FormData) {
+interface FormInterface {
+    name?: string[],
+    email?: string[],
+    password?: string[]
+}
 
-    await new Promise(resolve => setTimeout(() => resolve('resolvida'), 3000))
+interface FormState {
+    error?: FormInterface
+    message?: string
+}
 
-    const validate = teste.safeParse({
-        name: formData.get('name')
+
+export async function createUser(state: FormState | undefined, formData: FormData) {
+
+    // Validando dados
+    const validate = userDataSchema.safeParse({
+        name: formData.get('name'),
+        email: formData.get('email'),
+        password: formData.get('password')
     })
 
-    if (!validate) {
-        console.log(validate)
+    // Verificando resultado da validação
+    if (!validate.success) {
+        console.log({ error: validate.error.flatten().fieldErrors })
+        return { error: validate.error.flatten().fieldErrors }
     }
 
-    // const email = formData.get('email')
-    // const password = formData.get('password')
+    // Obtendo dados inseridos no formulário
+    const { name, email, password } = validate.data
 
+    // Faz hash da senha
+    const hashedPassword = await hash(password)
 
+    // Conectando a base de dados
+    const db = (await clientPromise).db('user2')
 
-    // console.log(name, email, password)
+    // Verificando se usuário já possui cadastro 
+    const isUser = await db.collection('users').findOne({ email })
+    if (isUser) {
+        return { message: 'Email já cadastrado na base de dados' }
+    }
 
+    // Adicionando usuário a base de dados
+    const user = await db.collection('users').insertOne({ name, email, hashedPassword })
+
+    redirect('/login')
 
     return { message: 'Usuário criado com sucesso' }
 }

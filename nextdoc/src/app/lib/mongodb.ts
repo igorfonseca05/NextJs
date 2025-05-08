@@ -23,14 +23,6 @@ declare global {
  * para uso interno à aplicação.
  */
 
-/**Within the if block we check the environment in which we are work on(running) our project,
- * if it is the local environment we need (to) make sure that multiples(multiple) database connections does(are) not
- * created over(during) the hot-reload of the page, for this(. To do this, ) we have declared a global viriable 
- * where we store a promise . Once we have a created instance, we share(assign) it with(to) a variable to be 
- * used internaly(internally), without needing to use the globaly stored instance code. (so we don't have to reference the globally stored connection directly.)
- */
-
-
 if (process.env.NODE_ENV === 'development') {
     if (!global._mongoClientPromise) {
         client = new MongoClient('mongodb://localhost:27017', {})
