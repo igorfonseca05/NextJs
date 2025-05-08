@@ -17,6 +17,9 @@ export function Header() {
                     <Link href="/login" className="bg-white text-orange-500 font-semibold px-4 py-1 rounded hover:bg-orange-100 transition">
                         Entrar
                     </Link>
+                    <Link href="/cadastrar" className="bg-white text-orange-500 font-semibold px-4 py-1 rounded hover:bg-orange-100 transition">
+                        Cadastrar
+                    </Link>
                 </nav>
             </div>
         </header>
