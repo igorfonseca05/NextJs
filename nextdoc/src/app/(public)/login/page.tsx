@@ -1,45 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import { useActionState, useState } from 'react'
+
+import { signIn } from '@/app/lib/formActions'
 
 export default function LoginPage() {
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-
-        const res = await fetch('/api/login', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, password }),
-        })
-
-        if (res.ok) {
-            // redirecionar ou mostrar mensagem
-            alert('Login successful')
-        } else {
-            alert('Invalid credentials')
-        }
-    }
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100">
-            <form onSubmit={handleSubmit} className="bg-white p-6 rounded shadow-md w-96">
+            <form action={signIn} className="bg-white p-6 rounded shadow-md w-96">
                 <h2 className="text-2xl font-semibold mb-4">Login</h2>
                 <input
                     type="email"
+                    name='email'
                     placeholder="Email"
                     className="w-full p-2 mb-3 border border-gray-300 rounded"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <input
                     type="password"
+                    name='password'
                     placeholder="Password"
                     className="w-full p-2 mb-3 border border-gray-300 rounded"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
                 />
                 <button
                     type="submit"

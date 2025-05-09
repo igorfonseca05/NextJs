@@ -1,6 +1,5 @@
 import { MongoClient } from "mongodb";
 
-
 let client
 let clientPromise: Promise<MongoClient>
 

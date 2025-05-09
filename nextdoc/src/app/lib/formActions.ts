@@ -1,6 +1,6 @@
 'use server'
 
-import { userDataSchema } from "./definitions";
+import { userDataSchema, loginSchema } from "./definitions";
 import { hash } from 'argon2'
 import clientPromise from "./mongodb";
 import { redirect } from "next/navigation";
@@ -16,6 +16,15 @@ interface FormState {
     message?: string
 }
 
+interface LoginForm {
+    email?: string[],
+    password?: string[]
+}
+
+interface LoginsState {
+    error?: LoginForm,
+    message?: string[]
+}
 
 export async function createUser(state: FormState | undefined, formData: FormData) {
 
@@ -53,4 +62,13 @@ export async function createUser(state: FormState | undefined, formData: FormDat
     redirect('/login')
 
     return { message: 'Usuário criado com sucesso' }
+}
+
+
+
+export async function signIn(formData: FormData) {
+
+    const email = new TextEncoder().encode(`${formData.get('email')}`)
+
+    console.log(email, formData.get('email'))
 }

@@ -6,3 +6,8 @@ export const userDataSchema = z.object({
     email: z.string().email({ message: 'Entre com um email válido' }).trim(),
     password: z.string().min(6, { message: 'A senha deve conter no minimo 6 caracteres' }).trim(),
 })
+
+export const loginSchema = z.object({
+    email: z.string().email({ message: 'Entre com um email válido' }).trim(),
+    password: z.string().min(6, { message: 'A senha deve conter no minimo 6 caracteres' }).trim(),
+})
