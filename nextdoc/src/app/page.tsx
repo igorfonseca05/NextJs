@@ -4,6 +4,7 @@ import { InfosProps } from "@/utils/types"
 import { useState } from "react"
 import { getData } from "./lib/serverFunctions"
 
+
 export default function Home() {
 
   const [data, setData] = useState<InfosProps[] | undefined>()
@@ -23,7 +24,7 @@ export default function Home() {
       <div>
         {
           data?.map(item => (
-            <p>{item.title}</p>
+            <p key={item.id}>{item.title}</p>
           ))
         }
       </div>
