@@ -38,67 +38,14 @@ function App() {
     if (!handleObject(dishe)) return
 
     httpConfig(dishe, 'POST')
-
-    // try {
-    //   const res = await fetch('http://localhost:3000/pratos', {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(dishe),
-    //   })
-
-    //   if (!res.ok) {
-    //     throw new Error('Erro ao adicionar o dado' + res.status)
-    //   }
-
-    //   const dado = await res.json()
-
-    //   setData(prev => [...prev, dado])
-
-    //   e.target.reset()
-    // } catch (error) {
-    //   console.log(error.message)
-    // }
   }
-
-
-  // useEffect(() => {
-
-  //   const controller = new AbortController()
-
-  //   async function getData() {
-  //     try {
-  //       const res = await fetch('http://localhost:3000/pratos', {
-  //         signal: controller.signal
-  //       });
-
-  //       if (!res.ok) {
-  //         throw new Error("Erro na requisição: " + resposta.status)
-  //       }
-
-  //       const dados = await res.json()
-  //       setData(dados)
-  //     } catch (error) {
-  //       if (error.name !== 'AbortError') {
-  //         console.log(error)
-  //       }
-  //     }
-
-  //   }
-
-  //   getData()
-
-  //   return () => controller.abort() // Cleanup
-  // }, [])
-
-
 
   return (
     <>
       <div>
         <h1 style={{ textAlign: 'center' }}>Dados </h1>
-        <ul>
+        {loading && <h1>Carregando dados...</h1>}
+        {!loading && <ul>
           {
             dishes?.map(prato => (
               <div key={prato.id} style={{ display: 'flex', gap: 20 }}>
@@ -107,7 +54,7 @@ function App() {
               </div>
             ))
           }
-        </ul>
+        </ul>}
       </div>
       {/* <button onClick={() => setNum(num + 1)}>Count</button> */}
       <form className="form-container" onSubmit={handleForm}>

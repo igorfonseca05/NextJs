@@ -12,11 +12,10 @@ export function useFetch(url) {
     const [method, setMethod] = useState(null)
     const [callFetch, setCallFetch] = useState(false)
 
+    const [unmonted, setUnmounted] = useState(false)
+
 
     function httpConfig(data, method) {
-
-        console.log(data, method)
-
         if (method === 'POST') {
             setConfig({
                 method,
@@ -38,10 +37,11 @@ export function useFetch(url) {
 
     useEffect(() => {
         const controller = new AbortController()
-        setLoading(true)
-        setError(null)
 
         async function getData() {
+            setLoading(true)
+            setError(null)
+            // await new Promise(resolve => setTimeout(() => resolve(''), 5000))
             try {
                 const res = await fetch(url, { signal: controller.signal })
 
@@ -52,15 +52,17 @@ export function useFetch(url) {
                 const dados = await res.json()
                 setData(dados)
             } catch (error) {
-                if (error.name !== 'AbortError') {
-                    setError(error.message)
+                if (error.name === 'AbortError') {
+                    // setError(error.message)
+                } else {
+                    console.log(error)
                 }
             } finally {
                 setLoading(false)
             }
         }
         getData()
-        return () => controller.abort()
+        return () => { controller.abort() }
     }, [url, callFetch])
 
 
@@ -99,5 +101,4 @@ export function useFetch(url) {
     }, [config, method, url])
 
     return { data, loading, error, httpConfig }
-
 }
