@@ -3,18 +3,19 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+import { useFetch } from '../hooks/useFetch'
+
 function App() {
 
-  const [data, setData] = useState()
+  // const [data, setData] = useState()
   const [avaliable, setAvailable] = useState(false)
   const [dishe, setDishe] = useState({})
 
-  const form = useRef(null)
+  const url = 'http://localhost:3000/pratos'
 
+  const { data: dishes, error, loading, httpConfig } = useFetch(url)
 
   function handleDishes(e) {
-
-    console.log(dishe)
     setDishe({
       ...dishe,
       [e.target.name]: e.target.value
@@ -31,66 +32,65 @@ function App() {
     )
   }
 
-
   async function handleForm(e) {
     e.preventDefault()
 
     if (!handleObject(dishe)) return
 
-    try {
-      const res = await fetch('http://localhost:3000/pratos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(dishe),
-      })
+    httpConfig(dishe, 'POST')
 
-      if (!res.ok) {
-        throw new Error('Erro ao adicionar o dado' + res.status)
-      }
+    // try {
+    //   const res = await fetch('http://localhost:3000/pratos', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(dishe),
+    //   })
 
-      const dado = await res.json()
+    //   if (!res.ok) {
+    //     throw new Error('Erro ao adicionar o dado' + res.status)
+    //   }
 
-      setData(prev => [...prev, dado])
+    //   const dado = await res.json()
 
-      e.target.reset()
-    } catch (error) {
-      console.log(error.message)
-    }
+    //   setData(prev => [...prev, dado])
+
+    //   e.target.reset()
+    // } catch (error) {
+    //   console.log(error.message)
+    // }
   }
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const controller = new AbortController()
+  //   const controller = new AbortController()
 
-    async function getData() {
-      try {
-        const res = await fetch('http://localhost:3000/pratos', {
-          signal: controller.signal
-        });
+  //   async function getData() {
+  //     try {
+  //       const res = await fetch('http://localhost:3000/pratos', {
+  //         signal: controller.signal
+  //       });
 
-        if (!res.ok) {
-          throw new Error("Erro na requisição: " + resposta.status)
-        }
+  //       if (!res.ok) {
+  //         throw new Error("Erro na requisição: " + resposta.status)
+  //       }
 
-        const dados = await res.json()
-        setData(dados)
-      } catch (error) {
-        if (error.name !== 'AbortError') {
-          console.log(error)
-        }
-      }
+  //       const dados = await res.json()
+  //       setData(dados)
+  //     } catch (error) {
+  //       if (error.name !== 'AbortError') {
+  //         console.log(error)
+  //       }
+  //     }
 
-    }
+  //   }
 
-    getData()
+  //   getData()
 
-    return () => controller.abort() // Cleanup
-  }, [])
-
-
+  //   return () => controller.abort() // Cleanup
+  // }, [])
 
 
 
@@ -100,14 +100,17 @@ function App() {
         <h1 style={{ textAlign: 'center' }}>Dados </h1>
         <ul>
           {
-            data?.map(prato => (
-              <li key={prato.id}>{prato.nome}</li>
+            dishes?.map(prato => (
+              <div key={prato.id} style={{ display: 'flex', gap: 20 }}>
+                <li>{prato.nome}</li>
+                <button onClick={() => httpConfig(prato, 'DELETE')}>Deletar</button>
+              </div>
             ))
           }
         </ul>
       </div>
       {/* <button onClick={() => setNum(num + 1)}>Count</button> */}
-      <form className="form-container" onSubmit={handleForm} ref={form}>
+      <form className="form-container" onSubmit={handleForm}>
         <h2>Novo Prato</h2>
 
         {/* Nome */}

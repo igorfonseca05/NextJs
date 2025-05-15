@@ -1,0 +1,6 @@
+###
+
+DELETE http://localhost:3000/4cb1
+Content-Type: application/json
+
+###
