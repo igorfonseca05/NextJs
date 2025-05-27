@@ -13,7 +13,6 @@ import LoadingFallback from "@/app/components/fallback"
 export const metadata: Metadata = {
     title: 'página sobre',
     description: 'Está é a página sobre da minha aplicação'
-
 }
 
 
