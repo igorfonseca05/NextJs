@@ -15,17 +15,24 @@ interface SimpleRepo {
     avatar_url: string;
   };
 }
-async function getData() {
-  try {
-    const data = await fetch('https://api.github.com/users/igorfonseca05/repos')
-    return data.json()
-  } catch (error) {
 
-  }
-}
+// async function getData() {
+//   try {
+//     const data = await fetch('https://api.github.com/users/igorfonseca05/repos')
+//     return data.json()
+//   } catch (error) {
+
+//   }
+// }
+
 async function getRepo() {
   try {
-    const data = await fetch('https://api.github.com/users/igorfonseca05/repos')
+    const data = await fetch('https://api.github.com/users/igorfonseca05/repos',
+      {
+        cache: 'force-cache',
+        next: { revalidate: 3600 }
+      })
+
     return data.json()
   } catch (error) {
 
@@ -35,10 +42,10 @@ async function getRepo() {
 
 
 export default async function Home() {
-  const repos = getData()
-  const rep = getRepo()
+  // const repos = getData()
+  const repos = getRepo()
 
-  const [data, data2] = await Promise.all([repos, rep])
+  // const [data, data2] = await Promise.all([repos, rep])
 
   // console.log(data, data2)
 
