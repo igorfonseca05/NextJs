@@ -1,26 +1,53 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useState } from 'react'
 
 export function Header() {
-    return (
-        <header className="w-full bg-orange-500 text-white shadow-md fixed top-0 left-0 z-50">
-            <div className="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-                <Link href="/" className="text-2xl font-bold tracking-tight">
-                    Marmita Delivery 🍱
-                </Link>
 
-                <nav className="hidden md:flex gap-6 items-center">
-                    <Link href="/about" className="hover:text-gray-100 transition">Sobre</Link>
-                    <Link href="/cardapio" className="hover:text-gray-100 transition">Cardápio</Link>
-                    <Link href="/contato" className="hover:text-gray-100 transition">Contato</Link>
-                    <Link href="/login" className="bg-white text-orange-500 font-semibold px-4 py-1 rounded hover:bg-orange-100 transition">
-                        Entrar
-                    </Link>
-                    <Link href="/cadastrar" className="bg-white text-orange-500 font-semibold px-4 py-1 rounded hover:bg-orange-100 transition">
-                        Cadastrar
-                    </Link>
+    const [isOpen, setIsOpen] = useState(true)
+    const [position, setPosition] = useState(0)
+
+
+    useEffect(() => {
+
+        function hideMenu(e: Event) {
+            if (window.scrollY > position) {
+                setIsOpen(false)
+
+            } else if (window.scrollY < position) {
+                setIsOpen(true)
+            }
+
+            setPosition(window.scrollY)
+        }
+
+        window.addEventListener('scroll', hideMenu)
+
+        return () => window.removeEventListener('scroll', hideMenu)
+
+    }, [position])
+
+
+    return (
+        <header className={`fixed top-0 z-5 flex py-3 justify-center w-full mx-auto ${isOpen ? 'menuDown' : 'menuUp'}`}>
+            <div className='flex w-[95%] lg:w-[50%] justify-between items-center bg-white shadow-md rounded-xl p-2'>
+                <div className="flex items-center text-lg font-bold text-gray-800">
+                    <img src="/logo-stack.svg" alt="" className="h-6 mr-2" /> {/* Substitua pelo seu logo */}
+                    <span>Stack</span>
+                </div>
+                <nav className='fixed right-0 top-0 h-screen bg-amber-200'>
+                    <ul className="flex flex-col space-x-8 text-gray-600 text-sm">
+                        <li className="hover:text-gray-900 cursor-pointer">Home</li>
+                        <li className="hover:text-gray-900 cursor-pointer">Browse</li>
+                        <li className="hover:text-gray-900 cursor-pointer">All Tools</li>
+                        {/* <li className="hover:text-gray-900 cursor-pointer">Resources</li> */}
+                    </ul>
                 </nav>
+                <div className="flex items-center space-x-5 text-gray-600 text-sm">
+                    <span className="bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition duration-200">Newsletter</span>
+                    {/* <div className="w-8 h-8 bg-gray-200 rounded-full cursor-pointer"></div> Placeholder para avatar/ícone */}
+                </div>
             </div>
         </header>
     )

@@ -24,3 +24,18 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.menuDown {
+  @apply translate-y-[0%] opacity-100 transition-all duration-500 ease-out;
+}
+.menuUp {
+  @apply translate-y-[-100%] opacity-0 transition-all duration-500 ease-out;
+}
+
+.mobile {
+  @apply fixed right-0 top-0 h-screen bg-amber-200;
+}
+
+.web {
+  @apply fixed right-0 top-0 h-screen bg-sky-500;
+}
