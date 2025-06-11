@@ -40,15 +40,17 @@ export default async function Home() {
       <div className="min-h-screen text-gray-800 font-sans"> {/* Fundo geral e texto */}
 
         {/* Conteúdo Principal com Container Max-Width */}
-        <main className="max-w-[1400px] mx-auto md:px-5 lg:px-0"> {/* Ajuste a largura máxima conforme necessário */}
+        <main className="max-w-[1400px] mx-auto lg:px-0"> {/* Ajuste a largura máxima conforme necessário */}
 
           {/* Hero Section */}
-          <section className="text-center lg:min-h-110 pt-40 pb-20 bg-gray-50 border-b border-gray-200 mb-10">
-            <h1 className="text-5xl font-extrabold text-gray-900 mb-4 leading-tight">Code Journal</h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Stay informed with the latest insights from industry leaders,
-              expert commentary, and honest advice to navigate the business landscape.
-            </p>
+          <section className="text-center lg:min-h-110 pt-40 pb-20 bg-sky-500 border-b border-gray-200 mb-10">
+            <div className="w-[95%] md:w-full m-auto">
+              <h1 className="text-5xl font-extrabold text-gray-900 mb-4 leading-tight">Code Journal</h1>
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                Stay informed with the latest insights from industry leaders,
+                expert commentary, and honest advice to navigate the business landscape.
+              </p>
+            </div>
           </section>
 
           {/* Articles Section */}

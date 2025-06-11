@@ -26,10 +26,10 @@ body {
 }
 
 .menuDown {
-  @apply translate-y-[0%] opacity-100 transition-all duration-500 ease-out;
+  @apply translate-y-[0%] transition-all duration-500 ease-out;
 }
 .menuUp {
-  @apply translate-y-[-100%] opacity-0 transition-all duration-500 ease-out;
+  @apply translate-y-[-100%] transition-all duration-500 ease-out;
 }
 
 .mobile {
@@ -38,4 +38,12 @@ body {
 
 .web {
   @apply fixed right-0 top-0 h-screen bg-sky-500;
+}
+
+.button {
+  @apply bg-white text-gray-700 px-4 py-2 rounded-lg border border-gray-300 hover:bg-gray-100 transition duration-200;
+}
+
+.animate {
+  @apply transition-all duration-500 ease-out;
 }
