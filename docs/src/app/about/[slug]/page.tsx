@@ -28,8 +28,6 @@ export async function generateStaticParams() {
     }))
 }
 
-
-
 export default async function Repo({ params }: { params: Promise<{ slug: string }> }) {
     const { slug } = await params
     const repo = await fetch(`https://api.github.com/repos/igorfonseca05/${slug}`)
