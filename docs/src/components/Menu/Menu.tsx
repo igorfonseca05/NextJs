@@ -1,20 +1,48 @@
 'use client';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react'; // ícones (instale com: `npm install lucide-react`)
+
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/all';
 
 const routes = [
     { name: 'Home', href: '/' },
     { name: 'Blog', href: '/blog' },
     { name: 'Sobre', href: '/about' },
-    { name: 'Contato', href: '/contato' }
+    { name: 'Contato', href: '/contato' },
+    { name: 'animation', href: '/animation' }
 ];
 
 export default function MenuComponent() {
     const [open, setOpen] = useState(false);
 
+    gsap.registerEffect(ScrollTrigger)
+
+    useEffect(() => {
+
+        const navtween = gsap.timeline({
+            scrollTrigger: {
+                trigger: "header",
+                start: 'bottom top'
+            }
+        })
+
+        navtween.fromTo('header', {
+            backgroundColor: 'transparent'
+        }, {
+            backgroundColor: '#00000050',
+            backgroundFilter: 'blur(10)',
+            duration: 1,
+            ease: 'power1.inOut'
+
+        })
+
+
+    }, [])
+
     return (
-        <header className="w-full bg-white shadow-md fixed top-0 z-50">
+        <header id='nav' className="w-full bg-white shadow-md fixed top-0 z-50">
             <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
                 <h1 className="text-xl font-bold text-blue-600">MeuSite</h1>
 
