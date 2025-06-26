@@ -1,19 +1,43 @@
 "use server"
 
-import { redirect } from "next/navigation"
-import { cookies } from "next/headers"
+import { z } from 'zod'
+import { success } from 'zod/v4'
 
+import { db, setDoc, doc, addDoc, collection } from '../../../db/firebase'
+import { serverTimestamp, updateDoc } from 'firebase/firestore'
+import { redirect } from 'next/navigation'
 
-export async function createUser(prevState: any, formData: FormData) {
+const ValidateData = z.object({
+    email: z.string().email({ message: 'Email invalido' }),
+    password: z.string().min(4, { message: 'Senha inválida' })
+})
 
-    const cookie = await cookies()
+type FormState = {
+    errors?: {
+        name?: string[]
+        email?: string[]
+        password?: string[]
+    }
+    message?: string
+} | undefined
 
-    const name = formData.get('name')
+export async function addData(prevState: FormState, formData: FormData) {
 
-    console.log(name)
+    const validate = ValidateData.safeParse({
+        email: formData.get('email'),
+        password: formData.get('password')
+    })
 
+    if (!validate.success) return { message: 'Erro ao validar dados' }
 
-    // await new Promise((res) => setTimeout(res, 1000))
-    redirect('/')
-    // return { message: `O nome cadastrado foi ${name}` }
-}
+    const docRef = collection(db, 'user')
+    // const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
+
+    await addDoc(docRef, {
+        ...validate?.data,
+        createdAt: serverTimestamp()
+    })
+
+    redirect('/animation')
+
+} 
