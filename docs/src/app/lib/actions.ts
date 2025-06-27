@@ -33,10 +33,10 @@ export async function addData(prevState: FormState, formData: FormData) {
     const docRef = collection(db, 'user')
     // const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
 
-    await addDoc(docRef, {
-        ...validate?.data,
-        createdAt: serverTimestamp()
-    })
+    // await addDoc(docRef, {
+    //     ...validate?.data,
+    //     createdAt: serverTimestamp()
+    // })
 
     redirect('/animation')
 
