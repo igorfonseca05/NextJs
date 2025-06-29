@@ -30,8 +30,8 @@ export async function addData(prevState: FormState, formData: FormData) {
 
     if (!validate.success) return { message: 'Erro ao validar dados' }
 
-    const docRef = collection(db, 'user')
-    // const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
+    // const docRef = collection(db, 'user')
+    const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
 
     // await addDoc(docRef, {
     //     ...validate?.data,
