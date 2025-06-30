@@ -1,21 +1,30 @@
-'use client'
+"use client"
 
-import { createUser } from "@/app/lib/actions"
-import { create } from "domain"
-import { useActionState } from "react"
-
+import { useEffect } from "react"
 
 export function Form() {
 
-    const [state, action, pending] = useActionState(createUser, null)
+    // useEffect(() => {
+    //     async function getData() {
+    //         const repos = await fetch('http://api.github.com/users/igorfonseca05/repos', { cache: 'force-cache', next: { revalidate: 10 } })
+    //         console.log(await repos.json())
+    //     }
 
-    console.log(state)
+    //     getData()
+    // }, [])
+    // const rep = await repos.json()
+
+    // console.log(rep)
+
+    // const [state, action, pending] = useActionState(createUser, null)
+
+    // console.log(state)
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
             <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-md">
                 <h1 className="text-2xl font-bold mb-4">Create an account</h1>
-                <form className="space-y-4" action={action}>
+                <form className="space-y-4">
                     <div>
                         <label className="block text-sm font-medium text-gray-700">Name</label>
                         <input
@@ -50,7 +59,8 @@ export function Form() {
                         type="submit"
                         className="w-full bg-blue-600 text-white p-2 rounded-md hover:bg-blue-700 transition"
                     >
-                        {!pending ? "Sign Up" : 'Aguarde...'}
+                        {/* {!pending ? "Sign Up" : 'Aguarde...'} */}
+                        entrar
                     </button>
                 </form>
             </div>
