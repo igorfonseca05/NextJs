@@ -33,7 +33,6 @@ export default async function Repo({ params }: { params: Promise<{ slug: string 
     const repo = await fetch(`https://api.github.com/repos/igorfonseca05/${slug}`)
     const data: GitReposProps = await repo.json()
 
-    // console.log(data)
 
 
     return (

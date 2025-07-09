@@ -3,7 +3,7 @@
 import { z } from 'zod'
 import { success } from 'zod/v4'
 
-import { db, setDoc, doc, addDoc, collection } from '../../../db/firebase'
+// import { db, setDoc, doc, addDoc, collection } from '../../../db/firebase'
 import { serverTimestamp, updateDoc } from 'firebase/firestore'
 import { redirect } from 'next/navigation'
 
@@ -31,7 +31,7 @@ export async function addData(prevState: FormState, formData: FormData) {
     if (!validate.success) return { message: 'Erro ao validar dados' }
 
     // const docRef = collection(db, 'user')
-    const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
+    // const docRef = doc(db, 'user', '6zfmvBEtju3OFj7EqMkd')
 
     // await addDoc(docRef, {
     //     ...validate?.data,
